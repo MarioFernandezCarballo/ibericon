@@ -1,24 +1,25 @@
-import requests
-import json
+# Web page for Ibericon Kill Team circuit
 
-eventId = "uuoZa6AwEC"
-leagueId = "TCGI2aHBcX"
-teamId = "JRWxbboEYy"
-userId = "0UlBBMiQ5H"
+from flask import Flask
+from utils import createApp, createDatabase
 
-urlEvent = f'https://pnnct8s9sk.execute-api.us-east-1.amazonaws.com/prod/eventplacings?sortAscending=false&eventId={eventId}&leagueId={leagueId}&expand%5B%5D=user&expand%5B%5D=team&expand%5B%5D=army&expand%5B%5D=subFaction&expand%5B%5D=character'
-urlUser = f'https://pnnct8s9sk.execute-api.us-east-1.amazonaws.com/prod/eventplacings?sortAscending=false&userId={userId}&leagueId={leagueId}&expand%5B%5D=user&expand%5B%5D=team&expand%5B%5D=army&expand%5B%5D=subFaction&expand%5B%5D=character'
-urlFaction = f'https://pnnct8s9sk.execute-api.us-east-1.amazonaws.com/prod/eventplacings?sortAscending=false&userId={eventId}&leagueId={leagueId}&expand%5B%5D=user&expand%5B%5D=team&expand%5B%5D=army&expand%5B%5D=subFaction&expand%5B%5D=character'
-urlTeam = f'https://pnnct8s9sk.execute-api.us-east-1.amazonaws.com/prod/eventplacings?sortAscending=false&teamId={teamId}&leagueId={leagueId}&expand%5B%5D=user&expand%5B%5D=team&expand%5B%5D=army&expand%5B%5D=subFaction&expand%5B%5D=character'
+from bpGeneric import genericBP
+from bpAuth import authBP
+from bpAdmin import adminBP
 
 
-data = requests.get(urlEvent)
-major = json.loads(data.text)
-data = requests.get(urlTeam)
-hellfizz = json.loads(data.text)
-data = requests.get(urlUser)
-nil = json.loads(data.text)
+app = Flask(__name__)
+app.register_blueprint(genericBP)
+app.register_blueprint(authBP)
+app.register_blueprint(adminBP)
+
+app = createApp(app)
+createDatabase(app)
 
 
-f = "https://pnnct8s9sk.execute-api.us-east-1.amazonaws.com/prod/eventplacings?limit=100&teamId=WcHn0yrvy9&expand%5B%5D=event&expand%5B%5D=user&expand%5B%5D=army&leagueId=TCGI2aHBcX"
-g = "https://pnnct8s9sk.execute-api.us-east-1.amazonaws.com/prod/eventplacings?sortAscending=false&eventId=uuoZa6AwEC&leagueId=TCGI2aHBcX&expand%5B%5D=user&expand%5B%5D=team&expand%5B%5D=army&expand%5B%5D=subFaction&expand%5B%5D=character"
+if __name__ == '__main__':
+    app.run(host=app.config['HOST'], port=app.config['PORT'])
+
+
+# TODO WEB
+#  - Crear roles

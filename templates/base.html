@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheets/styles.css') }}">
+</head>
+<body>
+    <div>
+        <details>
+            <summary>Menu</summary>
+            <nav>
+              <a href="/">General</a>
+              <a href="/players">Jugadores</a>
+              <a href="/tournaments">Torneos</a>
+              <a href="/factions">Facciones</a>
+              <a href="/teams">Equipos</a>
+            </nav>
+        </details>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
