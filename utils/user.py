@@ -18,7 +18,7 @@ def userSignup(database, form):
             if User.query.filter_by(username=form['username']).first():
                 return 402, None
             ok = False
-            # TODO enlazar bcp id con user
+            # TODO enlazar bcp id con user y comprobar si ya está creado
             bcpId = 0
             new_user = User(
                 bcpId=bcpId,

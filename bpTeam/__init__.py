@@ -4,4 +4,4 @@ from utils.user import setPlayerPermission, getUser
 from utils.decorators import only_left_hand, only_collaborator
 from utils.tournament import addNewTournament
 
-userBP = Blueprint('userBluePrint', __name__)
+teamBP = Blueprint('teamBluePrint', __name__)

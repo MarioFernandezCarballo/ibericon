@@ -42,21 +42,32 @@ class Tournament(db.Model):
     timestamp = db.Column(db.Integer)
 
 
-class PlayerTournament(db.Model):
+class UserTournament(db.Model):
     __tablename__ = 'usertournament'
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     factionId = db.Column(db.Integer, db.ForeignKey('faction.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
     tournamentId = db.Column(db.Integer, db.ForeignKey('tournament.id'))
+    bcpScore = db.Column(db.Float)
     ibericonScore = db.Column(db.Float)
 
 
-class PlayerTeam(db.Model):
+class UserFaction(db.Model):
+    __tablename__ = 'userfaction'
+    id = db.Column(db.Integer, primary_key=True)
+    userId = db.Column(db.Integer, db.ForeignKey('user.id'))
+    factionId = db.Column(db.Integer, db.ForeignKey('faction.id'))
+    ibericonScore = db.Column(db.Float)
+
+
+class UserTeam(db.Model):
     __tablename__ = 'userteam'
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
+    ibericonScore = db.Column(db.Float)
+
 
 
 

@@ -1,5 +1,13 @@
+# Aquí es donde está la chicha. Se calculan todos los detalles cuando se meten los torneos
+
 import requests
 import json
+
+from database import Tournament
+
+
+def getTournament(to):
+    return Tournament.query.filter_by(id=to).first()
 
 
 def addNewTournament(database, form):

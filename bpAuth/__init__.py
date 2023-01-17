@@ -1,10 +1,7 @@
-import json
 from datetime import timedelta
-
-from flask import Blueprint, make_response, redirect, url_for, request, flash, render_template, current_app, jsonify
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, set_access_cookies, unset_jwt_cookies
-
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask import Blueprint, make_response, redirect, url_for, request, flash, render_template, current_app
+from flask_jwt_extended import create_access_token, JWTManager, set_access_cookies, unset_jwt_cookies
+from flask_login import LoginManager, login_user, login_required, logout_user
 
 from utils.user import userLogin, userSignup, getUser
 
@@ -39,7 +36,8 @@ def signup():
             return redirect(url_for('authBluePrint.signup'))
         if status == 200:
             response = redirect(url_for('genericBluePrint.general'))
-            set_access_cookies(response, create_access_token(identity=new_user.publicId, expires_delta=timedelta(days=365)))
+            set_access_cookies(response, create_access_token(identity=new_user.publicId,
+                                                             expires_delta=timedelta(days=365)))
             response.set_cookie("preferred_update", "1")
             response.set_cookie("preferred_gameType", "1")
             response.set_cookie("preferred_language", "en")
@@ -83,4 +81,3 @@ def logout():
     logout_user()
     flash("Logout successfully")
     return response
-

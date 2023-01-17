@@ -25,5 +25,5 @@ def changePlayerPermissions(pl):
 @only_collaborator
 def randomize():
     if request.method == 'POST':
-        newTournament = addNewTournament(current_app.config['database'], request.form)
+        addNewTournament(current_app.config['database'], request.form)
         return redirect(url_for('genericBluePrint.general'))
