@@ -6,7 +6,7 @@
 body{
     font-family: Helvetica;
     -webkit-font-smoothing: antialiased;
-    background: rgba( 240, 240, 240, 1);
+    background: rgba( 100, 100, 100, 1);
 }
 h2{
     text-align: center;
@@ -14,14 +14,16 @@ h2{
     text-transform: uppercase;
     letter-spacing: 1px;
     color: white;
-    padding: 30px 0;
+    margin-top: 100px;
 }
 
 /* Table Styles */
 
 .table-wrapper{
-    margin: 10px 70px 70px;
+    margin: auto;
     box-shadow: 0px 35px 50px rgba( 0, 0, 0, 0.2 );
+    width: 50%;
+    max-width: 50%;
 }
 
 .fl-table {

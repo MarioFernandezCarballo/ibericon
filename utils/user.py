@@ -57,3 +57,12 @@ def setPlayerPermission(database, userId, form):
 
 def getUser(pl):
     return User.query.filter_by(id=pl).first()
+
+
+def getUsers(qty=0):
+    if qty > 0:
+        result = User.query.all()
+        return result[0:qty-1]
+    else:
+        return User.query.all()
+

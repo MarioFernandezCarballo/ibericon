@@ -19,6 +19,8 @@ def createApp(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = config['db-uri']
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+    app.config["BCP_API"] = config['api-base-uri']
+
     loginManager.init_app(app)
     app.config["loginManager"] = loginManager
     jwt.init_app(app)

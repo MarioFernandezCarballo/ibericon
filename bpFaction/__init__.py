@@ -9,7 +9,7 @@ factionBP = Blueprint('factionBluePrint', __name__)
 
 
 @factionBP.route("/faction/<fact>", methods={"GET", "POST"})
-def faction(fact):
+def factionEndPoint(fact):
     fct = getFaction(fact)
     return render_template(
         'faction.html',

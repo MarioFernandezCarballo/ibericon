@@ -1,6 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="player" style="display: flex;">
-        <h1>{{ user.name }}</h1>
+    <h2>{{ team.name }}</h2>
+    <h4>{{ team.ibericonScore }}</h4>
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+            <tr>
+                <th>Torneo</th>
+                <th>Posición</th>
+                <th>Puntuación</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tor in tournaments %}
+                <tr onclick="location.href='/tournament/{{ tor.tournamentId.id }}';">
+                    <td>{{ tor.name }}</td>
+                    <td>{{ tor.position }}</td>
+                    <td>{{ tor.ibericonScore }}</td>
+                </tr>
+            {% endfor %}
+            <tbody>
+        </table>
     </div>
 {% endblock %}

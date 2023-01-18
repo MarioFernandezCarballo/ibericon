@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="login">
-        <h2>Acceso</h2>
+        <h2>Añadir torneo</h2>
         <form class="login-form" action="/login" method="post">
-            <input placeholder="Nombre" type="text" name="username" id="username">
-            <input placeholder="Contraseña" type="password" name="password" id="password">
-            <button type="submit">Entrar</button>
+            <input placeholder="Link BCP" type="text" name="bcpLink" id="bcpLink">
+            <button type="submit">Enviar</button>
         </form>
-        <a href="/signup">¿No tienes cuenta? Regístrate aquí</a>
     </div>
 {% endblock %}

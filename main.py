@@ -27,4 +27,10 @@ if __name__ == '__main__':
 
 
 # TODO WEB
-#  - Crear roles
+#  - ¿Cómo funciona la api de BCP cuando hay más de 6 jugadores?
+#  - En login comprobar que no exista ya con el id bcp
+#  - Puntuaciones:
+#       1. Puntuación user con respecto a torneo
+#       2. Puntuación equipo con respecto a torneo (¿¿solo de equipos??)
+#       3. Puntuación user con respecto a facción
+#       4. Puntuacion user con respecto a equipo (Torneo individual)

@@ -1,5 +1,5 @@
-from flask import Blueprint, redirect, url_for, current_app, request, flash
-from flask_login import login_required
+from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template
+from flask_login import login_required, current_user
 
 from utils.user import setPlayerPermission, getUser
 from utils.decorators import only_left_hand, only_collaborator
@@ -11,19 +11,24 @@ adminBP = Blueprint('adminBluePrint', __name__)
 @adminBP.route("/player/<pl>/permission", methods={"GET", "POST"})
 @login_required
 @only_left_hand
-def changePlayerPermissions(pl):
+def changePlayerPermissionsEndPoint(pl):
     if setPlayerPermission(current_app.config["database"], pl, request.form):
         flash("OK")
     else:
         flash("No OK")
     pl = getUser(pl)
-    return redirect(url_for('userBluePrint.user', pl=pl['sql'].id))
+    return redirect(url_for('userBluePrint.userEndPoint', pl=pl['sql'].id))
 
 
 @adminBP.route("/add/tournament", methods={"POST"})
 @login_required
 @only_collaborator
-def randomize():
+def randomizeEndPoint():
     if request.method == 'POST':
         addNewTournament(current_app.config['database'], request.form)
-        return redirect(url_for('genericBluePrint.general'))
+        return redirect(url_for('genericBluePrint.generalEndPoint'))
+    return render_template(
+        'add.html',
+        title="Añadir Torneo",
+        user=current_user if not current_user.is_anonymous else None
+    )
