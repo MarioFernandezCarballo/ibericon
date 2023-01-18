@@ -54,6 +54,7 @@ def addNewTournament(database, form):
             if not User.query.filter_by(bcpId=user['userId']).first():
                 database.session.add(User(
                     bcpId=user['userId'],
+                    bcpName=user['user']['firstName'] + " " + user['user']['lastName'],
                     permissions=0
                 ))
             if user['army']:

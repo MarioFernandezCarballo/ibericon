@@ -9,6 +9,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     bcpId = db.Column(db.String(30), nullable=False)
+    bcpName = db.Column(db.String(100))
     name = db.Column(db.String(50))
     password = db.Column(db.String(200))
     shortName = db.Column(db.String(30))
