@@ -13,5 +13,13 @@ def getTeams(qty=0):
         return Team.query.all()
 
 
-def addTeam(te):
-    pass
+def addTeam(db, te):
+    if te['team']:
+        if not Team.query.filter_by(bcpId=te['teamId']).first():
+            db.session.add(Team(
+                bcpId=te['teamId'],
+                name=te['team']['name'],
+                shortName=te['team']['name'].replace(" ", "").lower()
+            ))
+    db.session.commit()
+    return Team.query.filter_by(bcpId=te['teamId']).first() if te['team'] else None

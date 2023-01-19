@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>{{ usr.name }}</h2>
-    <h4>{{ usr.ibericonScore }}</h4>
+    <h2>{{ usr.bcpName }}</h2>
+    <h4>Puntuación Ibericon: {{ usr.ibericonScore }}</h4>
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>
@@ -14,12 +14,12 @@
             </tr>
             </thead>
             <tbody>
-            {% for tor in tournaments %}
-                <tr onclick="location.href='/tournament/{{ tor.tournamentId.id }}';">
+            {% for tor in usr.tournaments %}
+                <tr onclick="window.open('{{ tor.bcpUri }}', '_blank');">
                     <td>{{ tor.name }}</td>
                     <td>{{ tor.position }}</td>
-                    <td>{{ tor.factionId.name }}</td>
-                    <td>{{ tor.teamId.name }}</td>
+                    <td>{{ tor.factionId }}</td>
+                    <td>{{ tor.teamId }}</td>
                     <td>{{ tor.ibericonScore }}</td>
                 </tr>
             {% endfor %}

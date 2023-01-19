@@ -36,7 +36,7 @@ def signupEndPoint():
             return redirect(url_for('authBluePrint.signupEndPoint'))
         if status == 200:
             response = redirect(url_for('genericBluePrint.generalEndPoint'))
-            set_access_cookies(response, create_access_token(identity=new_user.publicId,
+            set_access_cookies(response, create_access_token(identity=new_user.bcpId,
                                                              expires_delta=timedelta(days=365)))
             response.set_cookie("preferred_update", "1")
             response.set_cookie("preferred_gameType", "1")
@@ -60,7 +60,7 @@ def loginEndPoint():
         if status == 200:
             flash("Login successful")
             response = redirect(url_for('genericBluePrint.generalEndPoint'))
-            set_access_cookies(response, create_access_token(identity=user.publicId))
+            set_access_cookies(response, create_access_token(identity=user.bcpId))
             response.set_cookie("preferred_update", "1")
             response.set_cookie("preferred_gameType", "1")
             response.set_cookie("preferred_language", "en")

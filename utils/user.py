@@ -1,10 +1,13 @@
 import requests
 import json
 
+from flask import current_app
+from sqlalchemy import desc
+
 from password_strength import PasswordPolicy
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from database import User
+from database import User, UserFaction
 
 
 def userSignup(database, form):
@@ -21,12 +24,8 @@ def userSignup(database, form):
             if User.query.filter_by(name=form['username']).first():
                 return 402, None
             if "https://www.bestcoastpairings.com/user/" in form['bcpLink']:
-                bcpId = form["bcpLink"].split("/")[-1]
-
-                # TODO hacer llamada a bcp para saber si existe
-                #  si todo esta bien, guardar user o actualizar si ya existe en nuestra bd
-                data = requests.get()
-
+                bcpId = form["bcpLink"].split("/")[-1].split("?")[0]
+                data = requests.get(current_app.config["BCP_API_USER"].replace("####user####", bcpId))
                 user = json.loads(data.text)
                 if not user:
                     return 402, None
@@ -42,9 +41,9 @@ def userSignup(database, form):
                         bcpId=bcpId,
                         name=form['username'],
                         password=hashed_password,
-                        bcpName=user['user']['firstName'] + " " + user['user']['lastName'],
+                        bcpName=user["data"][0]['user']['firstName'] + " " + user["data"][0]['user']['lastName'],
                         shortName=form['username'].lower().replace(" ", ""),
-                        permissions=15 if form['username'] == 'Zakanawaner' else 0
+                        permissions=0
                     )
                     database.session.add(new_user)
                     database.session.commit()
@@ -85,3 +84,21 @@ def getUsers(qty=0):
     else:
         return User.query.all()
 
+
+def getUserByFaction(fct):
+    pls = UserFaction.query.filter_by(factionId=fct).order_by(desc(UserFaction.ibericonScore)).all()
+    with current_app.config['database'].session.no_autoflush:
+        for pl in pls:
+            pl.userId = User.query.filter_by(id=pl.userId).first()
+    return pls
+
+
+def addUser(db, usr):
+    if not User.query.filter_by(bcpId=usr['userId']).first():
+        db.session.add(User(
+            bcpId=usr['userId'],
+            bcpName=usr['user']['firstName'] + " " + usr['user']['lastName'],
+            permissions=0
+        ))
+    db.session.commit()
+    return User.query.filter_by(bcpId=usr['userId']).first()

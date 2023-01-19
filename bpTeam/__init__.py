@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import current_user
 
-from utils.team import getTeams
-from utils.tournament import getTournamentsByTeam
+from utils.team import getTeams, getTeam
 
 
 teamBP = Blueprint('teamBluePrint', __name__)
@@ -21,7 +20,7 @@ def teamsEndPoint():
 
 @teamBP.route("/team/<te>", methods={"GET", "POST"})
 def teamEndPoint(te):
-    trn = getTournamentsByTeam(te)
+    trn = getTeam(te)
     return render_template(
         'team.html',
         title=trn[0].teamId.name,

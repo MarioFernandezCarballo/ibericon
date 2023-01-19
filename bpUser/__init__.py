@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import current_user
 
-from utils.user import getUsers
-from utils.tournament import getTournamentsByUser
+from utils.user import getUsers, getUser
 
 userBP = Blueprint('userBluePrint', __name__)
 
@@ -20,11 +19,10 @@ def usersEndPoint():
 
 @userBP.route("/user/<us>", methods={"GET", "POST"})
 def userEndPoint(us):
-    trn = getTournamentsByUser(us)
+    usr = getUser(us)
     return render_template(
         'user.html',
-        title=trn[0].userId.name,
-        usr=trn[0].userId,
-        tournaments=trn,
+        title=usr.name,
+        usr=usr,
         user=current_user if not current_user.is_anonymous else None
     )

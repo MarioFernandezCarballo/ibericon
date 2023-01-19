@@ -12,7 +12,7 @@
             <tbody>
             {% for us in users %}
                 <tr onclick="location.href='/user/{{ us.id }}';">
-                    <td>{{ us.name }}</td>
+                    <td>{{ us.bcpName }}</td>
                     <td>{{ us.ibericonScore }}</td>
                 </tr>
             {% endfor %}

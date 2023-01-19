@@ -15,6 +15,9 @@ class User(db.Model, UserMixin):
     shortName = db.Column(db.String(30))
     permissions = db.Column(db.Integer)
     ibericonScore = db.Column(db.Float)
+    factions = db.relationship('Faction', secondary="userfaction", back_populates='users')
+    teams = db.relationship('Team', secondary="userteam", back_populates='users')
+    tournaments = db.relationship('Tournament', secondary="usertournament", back_populates='users')
 
 
 class Team(db.Model):
@@ -24,6 +27,8 @@ class Team(db.Model):
     name = db.Column(db.String(50), nullable=False)
     shortName = db.Column(db.String(50))
     ibericonScore = db.Column(db.Float)
+    users = db.relationship('User', secondary="userteam", back_populates='teams')
+    tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='teams')
 
 
 class Faction(db.Model):
@@ -32,6 +37,8 @@ class Faction(db.Model):
     bcpId = db.Column(db.String(30), nullable=False)
     name = db.Column(db.String(30), nullable=False)
     shortName = db.Column(db.String(30))
+    users = db.relationship('User', secondary="userfaction", back_populates='factions')
+    tournaments = db.relationship('Tournament', secondary="usertournament", back_populates='factions')
 
 
 class Tournament(db.Model):
@@ -41,7 +48,11 @@ class Tournament(db.Model):
     bcpUri = db.Column(db.String(100), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     shortName = db.Column(db.String(50))
-    timestamp = db.Column(db.Integer)
+    date = db.Column(db.String(50))
+    isTeam = db.Column(db.Boolean)
+    users = db.relationship('User', secondary="usertournament", back_populates='tournaments')
+    teams = db.relationship('Team', secondary="usertournament", back_populates='tournaments')
+    factions = db.relationship('Faction', secondary="usertournament", back_populates='tournaments')
 
 
 class UserTournament(db.Model):
@@ -49,18 +60,6 @@ class UserTournament(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     factionId = db.Column(db.Integer, db.ForeignKey('faction.id'))
-    teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
-    tournamentId = db.Column(db.Integer, db.ForeignKey('tournament.id'))
-    position = db.Column(db.Integer)
-    bcpScore = db.Column(db.Float)
-    ibericonScore = db.Column(db.Float)
-
-
-# TODO ver un ejemplo en BCP de torneo de equipos para ver que informaciones y resultados coger
-class TeamTournament(db.Model):
-    __tablename__ = 'teamtournament'
-    id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
     tournamentId = db.Column(db.Integer, db.ForeignKey('tournament.id'))
     position = db.Column(db.Integer)
@@ -82,7 +81,3 @@ class UserTeam(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
     ibericonScore = db.Column(db.Float)
-
-
-
-

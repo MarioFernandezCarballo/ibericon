@@ -20,10 +20,10 @@ def changePlayerPermissionsEndPoint(pl):
     return redirect(url_for('userBluePrint.userEndPoint', pl=pl['sql'].id))
 
 
-@adminBP.route("/add/tournament", methods={"POST"})
+@adminBP.route("/add/tournament", methods={"GET", "POST"})
 @login_required
 @only_collaborator
-def randomizeEndPoint():
+def addNewTournamentEndPoint():
     if request.method == 'POST':
         addNewTournament(current_app.config['database'], request.form)
         return redirect(url_for('genericBluePrint.generalEndPoint'))
