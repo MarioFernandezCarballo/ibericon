@@ -79,10 +79,10 @@ def getUser(pl):
 
 def getUsers(qty=0):
     if qty > 0:
-        result = User.query.all()
+        result = User.query.order_by(desc(User.ibericonScore)).all()
         return result[0:qty-1]
     else:
-        return User.query.all()
+        return User.query.order_by(desc(User.ibericonScore)).all()
 
 
 def getUserByFaction(fct):

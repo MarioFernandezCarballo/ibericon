@@ -26,9 +26,4 @@ if __name__ == '__main__':
     app.run(host=app.config['HOST'], port=app.config['PORT'])
 
 
-# TODO WEB
-#  - Puntuaciones:
-#       1. Puntuación user con respecto a torneo
-#       2. Puntuación equipo con respecto a torneo (¿¿solo de equipos??)
-#       3. Puntuación user con respecto a facción
-#       4. Puntuacion user con respecto a equipo (Torneo individual)
+# TODO eliminar espacios al principio y al final en los nombres

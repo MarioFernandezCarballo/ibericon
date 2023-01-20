@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template
 from flask_login import current_user
 
-from utils.faction import getFaction
+from utils.faction import getFaction, getFactions
 from utils.user import getUserByFaction
-from utils.decorators import only_left_hand, only_collaborator
-from utils.tournament import addNewTournament
+
 
 factionBP = Blueprint('factionBluePrint', __name__)
 
@@ -24,4 +23,11 @@ def factionEndPoint(fact):
 
 @factionBP.route("/factions", methods={"GET", "POST"})
 def factionsEndPoint():
-    pass
+    fct, usrFct = getFactions()
+    return render_template(
+        'factions.html',
+        title="Facciones",
+        user=current_user if not current_user.is_anonymous else None,
+        factions=fct,
+        usrFct=usrFct
+    )

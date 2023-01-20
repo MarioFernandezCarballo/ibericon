@@ -1,3 +1,5 @@
+from sqlalchemy import desc
+
 from database import Team
 
 
@@ -7,7 +9,7 @@ def getTeam(te):
 
 def getTeams(qty=0):
     if qty > 0:
-        result = Team.query.all()
+        result = Team.query.order_by(desc(Team.ibericonScore)).all()
         return result[0:qty-1]
     else:
         return Team.query.all()
