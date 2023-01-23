@@ -17,7 +17,7 @@ def addFaction(db, fct):
         if not Faction.query.filter_by(bcpId=fct['armyId']).first():
             db.session.add(Faction(
                 bcpId=fct['armyId'],
-                name=fct['army']['name'],
+                name=fct['army']['name'].strip(),
                 shortName=fct['army']['name'].replace(" ", "").lower()
             ))
     db.session.commit()

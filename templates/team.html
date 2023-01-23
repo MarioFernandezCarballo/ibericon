@@ -1,25 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>{{ team.name }}</h2>
-    <h4>Puntuación Ibericon: {{ team.ibericonScore }}</h4>
+    <h4>Puntuación Ibericon: {{ '%0.2f'| format(team.ibericonScore) }}</h4>
+    {% for tor in team.tournaments %}
+    <h3>{{ tor.name }}</h3>
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>
             <tr>
-                <th>Torneo</th>
+                <th>Jugador</th>
                 <th>Posición</th>
                 <th>Puntuación</th>
             </tr>
             </thead>
             <tbody>
-            {% for tor in tournaments %}
-                <tr onclick="location.href='/tournament/{{ tor.tournamentId.id }}';">
-                    <td>{{ tor.name }}</td>
-                    <td>{{ tor.position }}</td>
-                    <td>{{ tor.ibericonScore }}</td>
-                </tr>
-            {% endfor %}
+                {% for teamTor in teTor %}
+                    {% if tor.id == teamTor.UserTournament.tournamentId %}
+                        {% for usr in team.users %}
+                            {% if usr.id == teamTor.UserTournament.userId %}
+                                <tr onclick="location.href='/user/{{ teamTor.UserTournament.userId }}';">
+                                    <td>{{ usr.bcpName }}</td>
+                                    <td>{{ teamTor.UserTournament.position }}</td>
+                                    <td>{{ '%0.2f'| format(teamTor.UserTournament.ibericonScore) }}</td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
             <tbody>
         </table>
     </div>
+    {% endfor %}
 {% endblock %}

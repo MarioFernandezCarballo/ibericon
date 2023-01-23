@@ -13,7 +13,7 @@
             {% for te in teams %}
                 <tr onclick="location.href='/team/{{ te.id }}';">
                     <td>{{ te.name }}</td>
-                    <td>{{ te.ibericonScore }}</td>
+                    <td>{{ '%0.2f'| format(te.ibericonScore) }}</td>
                 </tr>
             {% endfor %}
             <tbody>

@@ -20,11 +20,11 @@ def teamsEndPoint():
 
 @teamBP.route("/team/<te>", methods={"GET", "POST"})
 def teamEndPoint(te):
-    trn = getTeam(te)
+    teTor = getTeam(te)
     return render_template(
         'team.html',
-        title=trn[0].teamId.name,
-        team=trn[0].teamId,
-        tournaments=trn,
+        title=teTor[0].Team.name,
+        team=teTor[0].Team,
+        teTor=teTor,
         user=current_user if not current_user.is_anonymous else None
     )

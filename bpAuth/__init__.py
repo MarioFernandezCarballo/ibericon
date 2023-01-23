@@ -14,7 +14,7 @@ jwt = JWTManager()
 
 @loginManager.user_loader
 def loadUser(user_id):
-    return getUser(user_id)
+    return getUser(user_id)[0].User
 
 
 @jwt.expired_token_loader

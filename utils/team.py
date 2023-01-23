@@ -1,10 +1,14 @@
+from flask import current_app
 from sqlalchemy import desc
 
-from database import Team
+from database import Team, Tournament, UserTournament
 
 
 def getTeam(te):
-    return Team.query.filter_by(id=te).first()
+    return current_app.config["database"].session.query(UserTournament, Tournament, Team
+                                                                  ).filter(UserTournament.teamId == te
+                                                                          ).join(Tournament, Tournament.id == UserTournament.tournamentId
+                                                                                 ).join(Team, Team.id == UserTournament.teamId).all()
 
 
 def getTeams(qty=0):
@@ -20,7 +24,7 @@ def addTeam(db, te):
         if not Team.query.filter_by(bcpId=te['teamId']).first():
             db.session.add(Team(
                 bcpId=te['teamId'],
-                name=te['team']['name'],
+                name=te['team']['name'].strip(),
                 shortName=te['team']['name'].replace(" ", "").lower()
             ))
     db.session.commit()

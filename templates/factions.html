@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
     {% for fct in factions %}
-    <h2 onclick="location.href='/faction/{{ fct.id }}';">{{ fct.name }}</h2>
     <div class="table-wrapper">
+        <h2 onclick="location.href='/faction/{{ fct.id }}';">{{ fct.name }}</h2>
         <table class="fl-table">
             <thead>
             <tr>
@@ -17,7 +17,7 @@
                         {% for usr in fct.users %}
                             {% if usr.id == usFc.UserFaction.userId %}
                                 <td>{{ usr.bcpName }}</td>
-                                <td>{{ usFc.UserFaction.ibericonScore }}</td>
+                                <td>{{ '%0.2f'| format(usFc.UserFaction.ibericonScore) }}</td>
                             {% endif %}
                         {% endfor %}
                     </tr>

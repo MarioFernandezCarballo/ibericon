@@ -22,7 +22,7 @@ def userEndPoint(us):
     usr = getUser(us)
     return render_template(
         'user.html',
-        title=usr.name,
+        title=usr[0].User.bcpName,
         usr=usr,
         user=current_user if not current_user.is_anonymous else None
     )

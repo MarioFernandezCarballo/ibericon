@@ -7,7 +7,7 @@ from sqlalchemy import desc
 from password_strength import PasswordPolicy
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from database import User, UserFaction
+from database import User, UserFaction, UserTournament, Tournament
 
 
 def userSignup(database, form):
@@ -74,7 +74,12 @@ def setPlayerPermission(database, userId, form):
 
 
 def getUser(pl):
-    return User.query.filter_by(id=pl).first()
+    return current_app.config["database"].session.query(UserTournament, User, Tournament
+                                                        ).filter(UserTournament.userId == pl
+                                                                 ).join(Tournament,
+                                                                        Tournament.id == UserTournament.tournamentId
+                                                                        ).join(User,
+                                                                               User.id == UserTournament.userId).all()
 
 
 def getUsers(qty=0):
@@ -97,7 +102,7 @@ def addUser(db, usr):
     if not User.query.filter_by(bcpId=usr['userId']).first():
         db.session.add(User(
             bcpId=usr['userId'],
-            bcpName=usr['user']['firstName'] + " " + usr['user']['lastName'],
+            bcpName=usr['user']['firstName'].strip() + " " + usr['user']['lastName'].strip(),
             permissions=0
         ))
     db.session.commit()

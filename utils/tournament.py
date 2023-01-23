@@ -31,7 +31,7 @@ def addNewTournament(db, form):
         db.session.add(Tournament(
             bcpId=info[0]['eventId'],
             bcpUri=form['bcpLink'],
-            name=info[0]['event']['name'],
+            name=info[0]['event']['name'].strip(),
             shortName=info[0]['event']['name'].replace(" ", "").lower(),
             isTeam=isTeamTournament,
             date=info[0]['event']['eventDate'].split("T")[0]

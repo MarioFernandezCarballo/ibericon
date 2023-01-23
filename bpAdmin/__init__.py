@@ -16,8 +16,7 @@ def changePlayerPermissionsEndPoint(pl):
         flash("OK")
     else:
         flash("No OK")
-    pl = getUser(pl)
-    return redirect(url_for('userBluePrint.userEndPoint', pl=pl['sql'].id))
+    return redirect(url_for('userBluePrint.userEndPoint', pl=pl))
 
 
 @adminBP.route("/add/tournament", methods={"GET", "POST"})
