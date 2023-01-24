@@ -5,16 +5,16 @@
         <h2 onclick="location.href='/faction/{{ fct.id }}';">{{ fct.name }}</h2>
         <table class="fl-table">
             <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Puntuación Ibericon</th>
-            </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Puntuación Ibericon</th>
+                </tr>
             </thead>
             <tbody>
             {% for usFc in usrFct %}
                 {% if usFc.UserFaction.factionId == fct.id %}
                     <tr onclick="location.href='/user/{{ usFc.UserFaction.userId }}';">
-                        {% for usr in fct.users %}
+                        {% for usr in fct.users[:3] %}
                             {% if usr.id == usFc.UserFaction.userId %}
                                 <td>{{ usr.bcpName }}</td>
                                 <td>{{ '%0.2f'| format(usFc.UserFaction.ibericonScore) }}</td>

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import current_user
 
-from utils.user import getUsers, getUser
+from utils.user import getUsers, getUser, getUserOnly
 
 userBP = Blueprint('userBluePrint', __name__)
 
@@ -19,10 +19,12 @@ def usersEndPoint():
 
 @userBP.route("/user/<us>", methods={"GET", "POST"})
 def userEndPoint(us):
+    user = getUserOnly(us)
     usr = getUser(us)
     return render_template(
         'user.html',
-        title=usr[0].User.bcpName,
+        title=user.bcpName,
+        userOnly=user,
         usr=usr,
         user=current_user if not current_user.is_anonymous else None
     )

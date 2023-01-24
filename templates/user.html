@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>{{ usr[0].User.bcpName }}</h2>
-    <h4>Puntuación Ibericon: {{ '%0.2f'| format(usr[0].User.ibericonScore) }}</h4>
+    <h2>{{ userOnly.bcpName }}</h2>
+    <h4>Puntuación Ibericon: {{ '%0.2f'| format(userOnly.ibericonScore) }}</h4>
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>
@@ -14,14 +14,14 @@
             </tr>
             </thead>
             <tbody>
-            {% for tor in usr[0].User.tournaments %}
+            {% for tor in userOnly.tournaments %}
                 {% for usrTor in usr %}
                     {% if usrTor.UserTournament.tournamentId == tor.id %}
                         <tr onclick="window.open('{{ tor.bcpUri }}', '_blank');">
                             <td>{{ tor.name }}</td>
                             <td>{{ usrTor.UserTournament.position }}</td>
                             {% if usrTor.UserTournament.factionId is not none %}
-                                {% for fct in usr[0].User.factions %}
+                                {% for fct in userOnly.factions %}
                                     {% if fct.id == usrTor.UserTournament.factionId %}
                                         <td>{{ fct.name }}</td>
                                     {% endif %}
@@ -30,7 +30,7 @@
                                 <td>-</td>
                             {% endif %}
                             {% if usrTor.UserTournament.teamId is not none %}
-                                {% for te in usr[0].User.teams %}
+                                {% for te in userOnly.teams %}
                                     {% if te.id == usrTor.UserTournament.teamId %}
                                         <td>{{ te.name }}</td>
                                     {% endif %}

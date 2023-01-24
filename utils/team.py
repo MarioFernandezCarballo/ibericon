@@ -6,9 +6,15 @@ from database import Team, Tournament, UserTournament
 
 def getTeam(te):
     return current_app.config["database"].session.query(UserTournament, Tournament, Team
-                                                                  ).filter(UserTournament.teamId == te
-                                                                          ).join(Tournament, Tournament.id == UserTournament.tournamentId
-                                                                                 ).join(Team, Team.id == UserTournament.teamId).all()
+                                                        ).filter(UserTournament.teamId == te
+                                                                 ).join(Tournament,
+                                                                        Tournament.id == UserTournament.tournamentId
+                                                                        ).join(Team,
+                                                                               Team.id == UserTournament.teamId).all()
+
+
+def getTeamOnly(te):
+    return Team.query.filter_by(id=te).first()
 
 
 def getTeams(qty=0):
@@ -16,7 +22,7 @@ def getTeams(qty=0):
         result = Team.query.order_by(desc(Team.ibericonScore)).all()
         return result[0:qty-1]
     else:
-        return Team.query.all()
+        return Team.query.order_by(desc(Team.ibericonScore)).all()
 
 
 def addTeam(db, te):

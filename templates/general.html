@@ -10,7 +10,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for us in users %}
+            {% for us in users[:5] %}
                 <tr onclick="location.href='/user/{{ us.id }}';">
                     <td>{{ us.bcpName }}</td>
                     <td>{{ '%0.2f'| format(us.ibericonScore) }}</td>
@@ -29,7 +29,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for te in teams %}
+            {% for te in teams[:5] %}
                 <tr onclick="location.href='/team/{{ te.id }}';">
                     <td>{{ te.name }}</td>
                     <td>{{ '%0.2f'| format(te.ibericonScore) }}</td>

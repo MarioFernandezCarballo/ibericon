@@ -3,7 +3,7 @@ from flask import Blueprint, make_response, redirect, url_for, request, flash, r
 from flask_jwt_extended import create_access_token, JWTManager, set_access_cookies, unset_jwt_cookies
 from flask_login import LoginManager, login_user, login_required, logout_user
 
-from utils.user import userLogin, userSignup, getUser
+from utils.user import userLogin, userSignup, getUserOnly
 
 
 authBP = Blueprint('authBluePrint', __name__)
@@ -14,7 +14,7 @@ jwt = JWTManager()
 
 @loginManager.user_loader
 def loadUser(user_id):
-    return getUser(user_id)[0].User
+    return getUserOnly(user_id)
 
 
 @jwt.expired_token_loader

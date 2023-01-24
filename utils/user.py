@@ -82,20 +82,16 @@ def getUser(pl):
                                                                                User.id == UserTournament.userId).all()
 
 
+def getUserOnly(pl):
+    return User.query.filter_by(id=pl).first()
+
+
 def getUsers(qty=0):
     if qty > 0:
         result = User.query.order_by(desc(User.ibericonScore)).all()
         return result[0:qty-1]
     else:
         return User.query.order_by(desc(User.ibericonScore)).all()
-
-
-def getUserByFaction(fct):
-    pls = UserFaction.query.filter_by(factionId=fct).order_by(desc(UserFaction.ibericonScore)).all()
-    with current_app.config['database'].session.no_autoflush:
-        for pl in pls:
-            pl.userId = User.query.filter_by(id=pl.userId).first()
-    return pls
 
 
 def addUser(db, usr):

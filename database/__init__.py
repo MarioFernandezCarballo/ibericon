@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(200))
     shortName = db.Column(db.String(30))
     permissions = db.Column(db.Integer)
-    ibericonScore = db.Column(db.Float)
+    ibericonScore = db.Column(db.Float, default=0.0)
     factions = db.relationship('Faction', secondary="userfaction", back_populates='users')
     teams = db.relationship('Team', secondary="userteam", back_populates='users')
     tournaments = db.relationship('Tournament', secondary="usertournament", back_populates='users')
@@ -26,7 +26,7 @@ class Team(db.Model):
     bcpId = db.Column(db.String(30), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     shortName = db.Column(db.String(50))
-    ibericonScore = db.Column(db.Float)
+    ibericonScore = db.Column(db.Float, default=0.0)
     users = db.relationship('User', secondary="userteam", back_populates='teams')
     tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='teams')
 
@@ -63,8 +63,8 @@ class UserTournament(db.Model):
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
     tournamentId = db.Column(db.Integer, db.ForeignKey('tournament.id'))
     position = db.Column(db.Integer)
-    bcpScore = db.Column(db.Float)
-    ibericonScore = db.Column(db.Float)
+    bcpScore = db.Column(db.Float, default=0.0)
+    ibericonScore = db.Column(db.Float, default=0.0)
 
 
 class UserFaction(db.Model):
@@ -72,7 +72,7 @@ class UserFaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     factionId = db.Column(db.Integer, db.ForeignKey('faction.id'))
-    ibericonScore = db.Column(db.Float)
+    ibericonScore = db.Column(db.Float, default=0.0)
 
 
 class UserTeam(db.Model):
@@ -80,4 +80,4 @@ class UserTeam(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
-    ibericonScore = db.Column(db.Float)
+    ibericonScore = db.Column(db.Float, default=0.0)

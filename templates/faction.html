@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="player" style="display: flex;">
-        <h1>{{ user.name }}</h1>
+    <div class="table-wrapper">
+        <h2>{{ faction.name }}</h2>
+        <table class="fl-table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Puntuación Ibericon</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for fc in faction %}
+                <tr onclick="location.href='/user/{{ fc.UserFaction.userId }}';">
+                    {% for usr in fc.Faction.users %}
+                        {% if usr.id == fc.UserFaction.userId %}
+                            <td>{{ usr.bcpName }}</td>
+                            <td>{{ '%0.2f'| format(fc.UserFaction.ibericonScore) }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            <tbody>
+        </table>
     </div>
 {% endblock %}

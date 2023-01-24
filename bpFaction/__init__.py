@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import current_user
 
-from utils.faction import getFaction, getFactions
-from utils.user import getUserByFaction
+from utils.faction import getFaction, getFactions, getFactionOnly
 
 
 factionBP = Blueprint('factionBluePrint', __name__)
@@ -10,14 +9,13 @@ factionBP = Blueprint('factionBluePrint', __name__)
 
 @factionBP.route("/faction/<fact>", methods={"GET", "POST"})
 def factionEndPoint(fact):
+    faction = getFactionOnly(fact)
     fct = getFaction(fact)
-    fctUsr = getUserByFaction(fact)
     return render_template(
         'faction.html',
-        title=fct.name,
+        title=faction.name,
         user=current_user if not current_user.is_anonymous else None,
-        faction=fct,
-        users=fctUsr
+        faction=fct
     )
 
 

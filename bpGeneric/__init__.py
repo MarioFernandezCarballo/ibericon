@@ -10,8 +10,8 @@ genericBP = Blueprint('genericBluePrint', __name__)
 
 @genericBP.route("/", methods={"GET", "POST"})
 def generalEndPoint():
-    usr = getUsers(5)
-    tms = getTeams(5)
+    usr = getUsers()
+    tms = getTeams()
     return render_template(
         'general.html',
         title="General",

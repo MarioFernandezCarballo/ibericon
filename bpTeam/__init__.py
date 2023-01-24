@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import current_user
 
-from utils.team import getTeams, getTeam
+from utils.team import getTeams, getTeam, getTeamOnly
 
 
 teamBP = Blueprint('teamBluePrint', __name__)
@@ -20,11 +20,12 @@ def teamsEndPoint():
 
 @teamBP.route("/team/<te>", methods={"GET", "POST"})
 def teamEndPoint(te):
+    team = getTeamOnly(te)
     teTor = getTeam(te)
     return render_template(
         'team.html',
-        title=teTor[0].Team.name,
-        team=teTor[0].Team,
+        title=team.name,
+        team=team,
         teTor=teTor,
         user=current_user if not current_user.is_anonymous else None
     )
