@@ -24,7 +24,7 @@ def refreshToken(jwt_header, jwt_data):
     return response
 
 
-@authBP.route('/signup', methods=['GET', 'POST'])
+@authBP.route('/signup/only-collaborator', methods=['GET', 'POST'])
 def signupEndPoint():
     if request.method == 'POST':
         status, new_user = userSignup(current_app.config['database'], request.form)
@@ -53,7 +53,7 @@ def signupEndPoint():
     return render_template('signup.html', title="Signup")
 
 
-@authBP.route('/login', methods=['GET', 'POST'])
+@authBP.route('/login/only-collaborator', methods=['GET', 'POST'])
 def loginEndPoint():
     if request.method == 'POST':
         status, user = userLogin(request.form)

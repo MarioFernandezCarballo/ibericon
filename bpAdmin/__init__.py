@@ -1,22 +1,29 @@
 from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template
 from flask_login import login_required, current_user
 
-from utils.user import setPlayerPermission, getUser
+from utils.user import setPlayerPermission, getUserOnly
 from utils.decorators import only_left_hand, only_collaborator
 from utils.tournament import addNewTournament
 
 adminBP = Blueprint('adminBluePrint', __name__)
 
 
-@adminBP.route("/player/<pl>/permission", methods={"GET", "POST"})
+@adminBP.route("/user/<us>/permission", methods={"GET", "POST"})
 @login_required
 @only_left_hand
-def changePlayerPermissionsEndPoint(pl):
-    if setPlayerPermission(current_app.config["database"], pl, request.form):
-        flash("OK")
-    else:
-        flash("No OK")
-    return redirect(url_for('userBluePrint.userEndPoint', pl=pl))
+def changePlayerPermissionsEndPoint(us):
+    if request.method == "POST":
+        if setPlayerPermission(current_app.config["database"], us, request.form):
+            flash("OK")
+        else:
+            flash("No OK")
+        return redirect(url_for('userBluePrint.userEndPoint',
+                                us=us))
+    usr = getUserOnly(us)
+    return render_template(
+        'permissions.html',
+        usr=usr,
+        permissions=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14])
 
 
 @adminBP.route("/add/tournament", methods={"GET", "POST"})

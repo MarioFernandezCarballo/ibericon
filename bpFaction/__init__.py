@@ -15,7 +15,8 @@ def factionEndPoint(fact):
         'faction.html',
         title=faction.name,
         user=current_user if not current_user.is_anonymous else None,
-        faction=fct
+        faction=fct,
+        fctOnly=faction
     )
 
 

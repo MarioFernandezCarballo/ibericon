@@ -5,8 +5,7 @@
 }
 body{
     font-family: Helvetica;
-    -webkit-font-smoothing: antialiased;
-    background: rgba( 100, 100, 100, 1);
+    background: url(img/background.jpg);
 }
 h2{
     text-align: center;
@@ -44,7 +43,7 @@ h4{
 /* NavBar Styles */
 
 nav {
-  background-color: #324960;
+  background-color: #333333;
   padding: 5px;
   text-align: center;
   width: 100%;
@@ -148,13 +147,13 @@ nav a:hover {
 
 .fl-table thead th {
     color: #ffffff;
-    background: #4FC3A1;
+    background: #777777;
 }
 
 
 .fl-table thead th:nth-child(odd) {
     color: #ffffff;
-    background: #324960;
+    background: #333333;
 }
 
 .fl-table tr:nth-child(even) {

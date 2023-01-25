@@ -2,11 +2,11 @@
 {% block content %}
     <div class="login">
         <h2>Acceso</h2>
-        <form class="login-form" action="/login" method="post">
+        <form class="login-form" action="/login/only-collaborator" method="post">
             <input placeholder="Nombre" type="text" name="username" id="username">
             <input placeholder="Contraseña" type="password" name="password" id="password">
             <button type="submit">Entrar</button>
-            <a href="/signup">¿No tienes cuenta? Regístrate aquí</a>
+            <a href="/signup/only-collaborator">¿No tienes cuenta? Regístrate aquí</a>
         </form>
     </div>
 {% endblock %}
