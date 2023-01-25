@@ -12,8 +12,8 @@ h2{
     font-size: 30px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: white;
     margin-top: 100px;
+    color: #fff;
 }
 h3{
     text-align: center;
@@ -40,26 +40,34 @@ h4{
     margin-top: 30px;
 }
 
+.link-h2:hover{
+    cursor: pointer;
+    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #ff8d00, 0 0 40px #ff0000;
+    color: #fff;
+}
+
 /* NavBar Styles */
 
 nav {
-  background-color: #333333;
+  margin: auto;
+  background: radial-gradient(circle, rgba(51,51,51,1) 0%, rgba(51,51,51,1) 97%, rgba(51,51,51,0) 100%);
   padding: 5px;
   text-align: center;
-  width: 100%;
+  width: 51%;
   position: sticky;
   top: 0px;
 }
 
 nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0px 20px;
-  font-size: 1.3em;
+    color: #fff;
+    text-decoration: none;
+    margin: 0px 20px;
+    font-size: 1.3em;
 }
 
 nav a:hover {
-  text-decoration: underline;
+    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #ff8d00, 0 0 40px #ff0000;
+    color: #fff;
 }
 
 @media
@@ -115,13 +123,9 @@ nav a:hover {
     max-width: 50%;
 }
 
-.table-wrapper h2:hover{
-    cursor: pointer;
-}
-
 .fl-table {
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: normal;
     border: none;
     border-collapse: collapse;
@@ -137,27 +141,28 @@ nav a:hover {
 }
 
 .fl-table td {
-    border-right: 1px solid #f8f8f8;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
 }
 
-.fl-table td:hover {
+.fl-table tbody tr:hover {
     cursor: pointer;
+    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #ff8d00, 0 0 40px #ff0000;
+    color: #fff;
 }
 
 .fl-table thead th {
-    color: #ffffff;
-    background: #777777;
-}
-
-
-.fl-table thead th:nth-child(odd) {
     color: #ffffff;
     background: #333333;
 }
 
 .fl-table tr:nth-child(even) {
-    background: #F8F8F8;
+    color: #ffffff;
+    background: #595757;
+}
+.fl-table tr:nth-child(odd) {
+    color: #ffffff;
+    background: #757575;
 }
 
 /* Responsive */

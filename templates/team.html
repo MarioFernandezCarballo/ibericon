@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>{{ team.name }}</h2>
+    <h2 class="link-h2">{{ team.name }}</h2>
     <h4>Puntuación Ibericon: {{ '%0.2f'| format(team.ibericonScore) }}</h4>
     {% for tor in team.tournaments %}
     <h3>{{ tor.name }}</h3>

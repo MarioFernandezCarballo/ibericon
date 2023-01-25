@@ -2,7 +2,7 @@
 {% block content %}
     {% for fct in factions %}
     <div class="table-wrapper">
-        <h2 onclick="location.href='/faction/{{ fct.id }}';">{{ fct.name }}</h2>
+        <h2 class="link-h2" onclick="location.href='/faction/{{ fct.id }}';">{{ fct.name }}</h2>
         <table class="fl-table">
             <thead>
                 <tr>
