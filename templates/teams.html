@@ -6,13 +6,15 @@
             <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Posición</th>
                 <th>Puntuación Ibericon</th>
             </tr>
             </thead>
             <tbody>
             {% for te in teams %}
                 <tr onclick="location.href='/team/{{ te.id }}';">
-                    <td>{{ te.name }}</td>
+                    <td style="width: 60%;">{{ te.name }}</td>
+                    <td>{{ loop.index }}</td>
                     <td>{{ '%0.2f'| format(te.ibericonScore) }}</td>
                 </tr>
             {% endfor %}

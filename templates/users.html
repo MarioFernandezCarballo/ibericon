@@ -6,13 +6,15 @@
             <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Posición</th>
                 <th>Puntuación Ibericon</th>
             </tr>
             </thead>
             <tbody>
             {% for us in users %}
                 <tr onclick="location.href='/user/{{ us.id }}';">
-                    <td>{{ us.bcpName }}</td>
+                    <td style="width: 60%;">{{ us.bcpName }}</td>
+                    <td>{{ loop.index }}</td>
                     <td>{{ '%0.2f'| format(us.ibericonScore) }}</td>
                 </tr>
             {% endfor %}

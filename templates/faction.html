@@ -6,6 +6,7 @@
             <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Posición</th>
                 <th>Puntuación Ibericon</th>
             </tr>
             </thead>
@@ -14,10 +15,11 @@
                 <tr onclick="location.href='/user/{{ fc.UserFaction.userId }}';">
                     {% for usr in fc.Faction.users %}
                         {% if usr.id == fc.UserFaction.userId %}
-                            <td>{{ usr.bcpName }}</td>
-                            <td>{{ '%0.2f'| format(fc.UserFaction.ibericonScore) }}</td>
+                            <td style="width: 50%;">{{ usr.bcpName }}</td>
                         {% endif %}
                     {% endfor %}
+                    <td style="width: 20%;">{{ loop.index }}</td>
+                    <td>{{ '%0.2f'| format(fc.UserFaction.ibericonScore) }}</td>
                 </tr>
             {% endfor %}
             <tbody>

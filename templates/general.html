@@ -12,7 +12,7 @@
             <tbody>
             {% for us in users[:5] %}
                 <tr onclick="location.href='/user/{{ us.id }}';">
-                    <td>{{ us.bcpName }}</td>
+                    <td style="width: 70%;">{{ us.bcpName }}</td>
                     <td>{{ '%0.2f'| format(us.ibericonScore) }}</td>
                 </tr>
             {% endfor %}
@@ -31,7 +31,7 @@
             <tbody>
             {% for te in teams[:5] %}
                 <tr onclick="location.href='/team/{{ te.id }}';">
-                    <td>{{ te.name }}</td>
+                    <td style="width: 70%;">{{ te.name }}</td>
                     <td>{{ '%0.2f'| format(te.ibericonScore) }}</td>
                 </tr>
             {% endfor %}
