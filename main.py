@@ -5,6 +5,7 @@ from bpGeneric import genericBP
 from bpAuth import authBP
 from bpAdmin import adminBP
 from bpTeam import teamBP
+from bpClub import clubBP
 from bpUser import userBP
 from bpFaction import factionBP
 from bpTournament import tournamentBP
@@ -14,6 +15,7 @@ app.register_blueprint(genericBP)
 app.register_blueprint(authBP)
 app.register_blueprint(adminBP)
 app.register_blueprint(teamBP)
+app.register_blueprint(clubBP)
 app.register_blueprint(userBP)
 app.register_blueprint(factionBP)
 app.register_blueprint(tournamentBP)
@@ -24,3 +26,6 @@ createDatabase(app)
 
 if __name__ == '__main__':
     app.run(host=app.config['HOST'], port=app.config['PORT'])
+
+
+# TODO hacer equipos después del invitacional

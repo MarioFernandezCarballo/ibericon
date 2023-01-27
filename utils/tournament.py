@@ -4,10 +4,10 @@ import datetime
 
 from flask import current_app
 
-from database import Tournament, UserTournament, UserTeam, UserFaction
+from database import Tournament, UserTournament, UserClub, UserFaction
 from utils.user import addUser
 from utils.faction import addFaction
-from utils.team import addTeam
+from utils.club import addClub
 
 
 def getTournament(to):
@@ -41,7 +41,8 @@ def addNewTournament(db, form):
         for user in info:
             usr = addUser(db, user)
             fct = addFaction(db, user)
-            te = addTeam(db, user)
+            # TODO Check si clubs
+            cl = addClub(db, user)
 
             tor.users.append(usr)
             usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
@@ -57,18 +58,18 @@ def addNewTournament(db, form):
                 usrFct = UserFaction.query.filter_by(userId=usr.id).filter_by(factionId=fct.id).first()
                 # TODO calcular y actualizar Ibericon Score de facción de este user
                 usrFct.ibericonScore = user['ITCPoints']
-            if te:
-                if te not in usr.teams:
-                    usr.teams.append(te)
-                usrTor.teamId = te.id
-                usrTe = UserTeam.query.filter_by(userId=usr.id).filter_by(teamId=te.id).first()
+            if cl:
+                if cl not in usr.clubs:
+                    usr.clubs.append(cl)
+                usrTor.clubId = cl.id
+                usrTe = UserClub.query.filter_by(userId=usr.id).filter_by(clubId=cl.id).first()
                 # TODO calcular y actualizar Ibericon Score de equipo para este torneo
                 usrTe.ibericonScore = user['ITCPoints']
-                # TODO Update global team score
-                if te.ibericonScore:
-                    te.ibericonScore += user['ITCPoints']
+                # TODO Update global club score
+                if cl.ibericonScore:
+                    cl.ibericonScore += user['ITCPoints']
                 else:
-                    te.ibericonScore = user['ITCPoints']
+                    cl.ibericonScore = user['ITCPoints']
 
             # TODO calcular global ibericon score ya sea para jugador o para equipo
             if usr.ibericonScore:

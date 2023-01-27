@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     ibericonScore = db.Column(db.Float, default=0.0)
     factions = db.relationship('Faction', secondary="userfaction", back_populates='users')
     teams = db.relationship('Team', secondary="userteam", back_populates='users')
+    clubs = db.relationship('Club', secondary="userclub", back_populates='users')
     tournaments = db.relationship('Tournament', secondary="usertournament", back_populates='users')
 
 
@@ -28,7 +29,18 @@ class Team(db.Model):
     shortName = db.Column(db.String(50))
     ibericonScore = db.Column(db.Float, default=0.0)
     users = db.relationship('User', secondary="userteam", back_populates='teams')
-    tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='teams')
+    tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='teams', overlaps="tournaments")
+
+
+class Club(db.Model):
+    __tablename__ = 'club'
+    id = db.Column(db.Integer, primary_key=True)
+    bcpId = db.Column(db.String(30), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    shortName = db.Column(db.String(50))
+    ibericonScore = db.Column(db.Float, default=0.0)
+    users = db.relationship('User', secondary="userclub", back_populates='clubs')
+    tournaments = db.relationship('Tournament', secondary='usertournament', back_populates='clubs', overlaps="tournaments")
 
 
 class Faction(db.Model):
@@ -38,7 +50,7 @@ class Faction(db.Model):
     name = db.Column(db.String(30), nullable=False)
     shortName = db.Column(db.String(30))
     users = db.relationship('User', secondary="userfaction", back_populates='factions')
-    tournaments = db.relationship('Tournament', secondary="usertournament", back_populates='factions')
+    tournaments = db.relationship('Tournament', secondary="usertournament", back_populates='factions', overlaps="tournaments,tournaments")
 
 
 class Tournament(db.Model):
@@ -50,9 +62,10 @@ class Tournament(db.Model):
     shortName = db.Column(db.String(50))
     date = db.Column(db.String(50))
     isTeam = db.Column(db.Boolean)
-    users = db.relationship('User', secondary="usertournament", back_populates='tournaments')
-    teams = db.relationship('Team', secondary="usertournament", back_populates='tournaments')
-    factions = db.relationship('Faction', secondary="usertournament", back_populates='tournaments')
+    users = db.relationship('User', secondary="usertournament", back_populates='tournaments', overlaps="tournaments,tournaments,tournaments")
+    teams = db.relationship('Team', secondary="usertournament", back_populates='tournaments', overlaps="tournaments,tournaments,tournaments,users")
+    clubs = db.relationship('Club', secondary="usertournament", back_populates='tournaments', overlaps="teams,tournaments,tournaments,tournaments,users")
+    factions = db.relationship('Faction', secondary="usertournament", back_populates='tournaments', overlaps="clubs,teams,tournaments,tournaments,tournaments,users")
 
 
 class UserTournament(db.Model):
@@ -61,6 +74,7 @@ class UserTournament(db.Model):
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     factionId = db.Column(db.Integer, db.ForeignKey('faction.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
+    clubId = db.Column(db.Integer, db.ForeignKey('club.id'))
     tournamentId = db.Column(db.Integer, db.ForeignKey('tournament.id'))
     position = db.Column(db.Integer)
     bcpScore = db.Column(db.Float, default=0.0)
@@ -80,4 +94,12 @@ class UserTeam(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
     teamId = db.Column(db.Integer, db.ForeignKey('team.id'))
+    ibericonScore = db.Column(db.Float, default=0.0)
+
+
+class UserClub(db.Model):
+    __tablename__ = 'userclub'
+    id = db.Column(db.Integer, primary_key=True)
+    userId = db.Column(db.Integer, db.ForeignKey('user.id'))
+    clubId = db.Column(db.Integer, db.ForeignKey('club.id'))
     ibericonScore = db.Column(db.Float, default=0.0)
