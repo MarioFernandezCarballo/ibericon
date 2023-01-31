@@ -21,32 +21,41 @@ def getAllTournaments():
 def addNewTournament(db, form):
     if "https://www.bestcoastpairings.com/event/" in form['bcpLink']:
         eventId = form["bcpLink"].split("/")[-1].split("?")[0]
-        uri = current_app.config["BCP_API"].replace("####event####", eventId)
+        uri = current_app.config["BCP_API_EVENT"].replace("####event####", eventId)
         response = requests.get(uri)
         info = json.loads(response.text)
-        info = info['data']
-        if Tournament.query.filter_by(bcpId=info[0]['eventId']).first():
+        if not info['ended']:
             return 400
-        isTeamTournament = False  # TODO saber si es torneo de equipos o no
+        if Tournament.query.filter_by(bcpId=info['id']).first():
+            return 400
+        isTeamTournament = info['teamEvent']
         db.session.add(Tournament(
-            bcpId=info[0]['eventId'],
-            bcpUri=form['bcpLink'],
-            name=info[0]['event']['name'].strip(),
-            shortName=info[0]['event']['name'].replace(" ", "").lower(),
+            bcpId=info['id'],
+            bcpUri="https://www.bestcoastpairings.com/event/" + info['id'],
+            name=info['name'].strip(),
+            shortName=info['name'].replace(" ", "").lower(),
             isTeam=isTeamTournament,
-            date=info[0]['event']['eventDate'].split("T")[0]
+            date=info['eventDate'].split("T")[0]
         ))
         db.session.commit()
-        tor = Tournament.query.filter_by(bcpId=info[0]['eventId']).first()
-        for user in info:
+        tor = Tournament.query.filter_by(bcpId=info['id']).first()
+        if tor.isTeam:
+            uri = current_app.config["BCP_API_TEAM"].replace("####event####", tor.bcpId)
+            response = requests.get(uri)
+            info = json.loads(response.text)
+        else:
+            uri = current_app.config["BCP_API_USERS"].replace("####event####", tor.bcpId)
+            response = requests.get(uri)
+            info = json.loads(response.text)
+
+        for user in info['data']:
             usr = addUser(db, user)
             fct = addFaction(db, user)
-            # TODO Check si clubs
             cl = addClub(db, user)
-
             tor.users.append(usr)
             usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
             usrTor.position = user['placing']
+            # TODO hasta aquqi marcha. Ver nueva estructura de bcp
             usrTor.bcpScore = user['ITCPoints']
             # TODO calcular ibericon score de este user para este torneo
             usrTor.ibericonScore = user['ITCPoints']

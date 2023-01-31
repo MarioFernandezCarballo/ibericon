@@ -22,8 +22,11 @@ def createApp(app):
     app.config["SQLALCHEMY_DATABASE_URI"] = config['db-uri']
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    app.config["BCP_API"] = config['api-base-uri']
+    app.config["BCP_API_EVENT"] = config['api-event-uri']
     app.config["BCP_API_USER"] = config['api-user-uri']
+    app.config["BCP_API_USERS"] = config['api-users-uri']
+    app.config["BCP_API_TEAM"] = config['api-team-uri']
+    app.config["BCP_API_TEAM_PLACINGS"] = config['api-team-placings-uri']
 
     app.config["ADMIN_USERNAME"] = config['admin-name']
     app.config["ADMIN_PASSWORD"] = config['admin-password']
