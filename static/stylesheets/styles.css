@@ -9,7 +9,7 @@ body{
 }
 body::after{
     content: "";
-    background: url(img/1.png);
+    background: url(img/background.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
