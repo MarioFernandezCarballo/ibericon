@@ -36,7 +36,8 @@ def addNewTournament(db, form):
             shortName=info['name'].replace(" ", "").lower(),
             isTeam=isTeamTournament,
             date=info['eventDate'].split("T")[0],
-            totalPlayers=info['totalPlayers']
+            totalPlayers=info['totalPlayers'],
+            rounds=info['numberOfRounds']
         ))
         db.session.commit()
         tor = Tournament.query.filter_by(bcpId=info['id']).first()
@@ -60,8 +61,8 @@ def addNewTournament(db, form):
             performance = [0, 0, 0]
             for game in user['games']:
                 performance[game['gameResult']] += 1
-            usrTor.ibericonScore = ((performance[2]*3) + performance[1]) * (1 + (tor.totalPlayers / 100))  # Option 1
-            # usrTor.ibericonScore = ((performance[2] * 3) + performance[1]) * (tor.totalPlayers / 100)  # Option 2
+            score = ((performance[2]*3) + performance[1]) * (1 + (tor.totalPlayers / 100))
+            usrTor.ibericonScore = (score*10)/tor.rounds
             if fct:
                 if fct not in usr.factions:
                     usr.factions.append(fct)

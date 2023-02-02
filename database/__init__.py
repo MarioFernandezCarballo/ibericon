@@ -63,6 +63,7 @@ class Tournament(db.Model):
     date = db.Column(db.String(50))
     isTeam = db.Column(db.Boolean)
     totalPlayers = db.Column(db.Integer)
+    rounds = db.Column(db.Integer)
     users = db.relationship('User', secondary="usertournament", back_populates='tournaments', overlaps="tournaments,tournaments,tournaments")
     teams = db.relationship('Team', secondary="usertournament", back_populates='tournaments', overlaps="tournaments,tournaments,tournaments,users")
     clubs = db.relationship('Club', secondary="usertournament", back_populates='tournaments', overlaps="teams,tournaments,tournaments,tournaments,users")
