@@ -14,8 +14,8 @@
             </tr>
             </thead>
             <tbody>
-            {% for tor in userOnly.tournaments %}
-                {% for usrTor in usr %}
+            {% for usrTor in usr %}
+                {% for tor in userOnly.tournaments %}
                     {% if usrTor.UserTournament.tournamentId == tor.id %}
                         <tr onclick="window.open('{{ tor.bcpUri }}', '_blank');">
                             <td>{{ tor.name }}</td>

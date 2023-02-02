@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import current_user
 
-from utils.user import getUsers, getUser, getUserOnly
+from utils.user import getUsers, getUser, getUserOnly, getUserBestTournaments
 
 userBP = Blueprint('userBluePrint', __name__)
 

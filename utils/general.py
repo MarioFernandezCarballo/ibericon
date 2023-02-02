@@ -6,7 +6,7 @@ from database import UserTournament, UserFaction, UserClub, Club
 def updateStats(db, tor):
     for usr in tor.users:
         best = UserTournament.query.filter_by(userId=usr.id).order_by(desc(UserTournament.ibericonScore)).all()
-        usr.ibericonScore = sum([t.ibericonScore for t in best[:3]])
+        usr.ibericonScore = sum([t.ibericonScore for t in best[:4]])
         for usrFct in UserFaction.query.filter_by(userId=usr.id).all():
             score = 0
             count = 0
@@ -29,6 +29,6 @@ def updateStats(db, tor):
             usrCl.ibericonScore = score
     for cl in Club.query.all():
         best = UserClub.query.filter_by(clubId=cl.id).order_by(desc(UserClub.ibericonScore)).all()
-        cl.ibericonScore = sum([t.ibericonScore for t in best[:9]])
+        cl.ibericonScore = sum([t.ibericonScore for t in best[:10]])
     db.session.commit()
     return 200

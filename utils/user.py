@@ -75,11 +75,15 @@ def setPlayerPermission(database, userId, form):
 
 def getUser(pl):
     return current_app.config["database"].session.query(UserTournament, User, Tournament
-                                                        ).filter(UserTournament.userId == pl
+                                                        ).order_by(desc(UserTournament.ibericonScore)).filter(UserTournament.userId == pl
                                                                  ).join(Tournament,
                                                                         Tournament.id == UserTournament.tournamentId
                                                                         ).join(User,
                                                                                User.id == UserTournament.userId).all()
+
+
+def getUserBestTournaments(pl):
+    return UserTournament.query.filter_by(userId=int(pl)).order_by(desc(UserTournament.ibericonScore)).limit(4).all()
 
 
 def getUserOnly(pl):
