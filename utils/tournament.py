@@ -55,10 +55,10 @@ def addNewTournament(db, form):
             tor.users.append(usr)
             usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
             usrTor.position = user['placing']
-            # TODO hasta aquqi marcha. Ver nueva estructura de bcp
-            usrTor.bcpScore = user['ITCPoints']
+            # TODO Ver nueva estructura de bcp quye ha cambiado!!!!
+            usrTor.bcpScore = user['battlePoints']
             # TODO calcular ibericon score de este user para este torneo
-            usrTor.ibericonScore = user['ITCPoints']
+            usrTor.ibericonScore = user['battlePoints']
 
             if fct:
                 if fct not in usr.factions:
@@ -66,25 +66,25 @@ def addNewTournament(db, form):
                 usrTor.factionId = fct.id
                 usrFct = UserFaction.query.filter_by(userId=usr.id).filter_by(factionId=fct.id).first()
                 # TODO calcular y actualizar Ibericon Score de facción de este user
-                usrFct.ibericonScore = user['ITCPoints']
+                usrFct.ibericonScore = user['battlePoints']
             if cl:
                 if cl not in usr.clubs:
                     usr.clubs.append(cl)
                 usrTor.clubId = cl.id
                 usrTe = UserClub.query.filter_by(userId=usr.id).filter_by(clubId=cl.id).first()
                 # TODO calcular y actualizar Ibericon Score de equipo para este torneo
-                usrTe.ibericonScore = user['ITCPoints']
+                usrTe.ibericonScore = user['battlePoints']
                 # TODO Update global club score
                 if cl.ibericonScore:
-                    cl.ibericonScore += user['ITCPoints']
+                    cl.ibericonScore += user['battlePoints']
                 else:
-                    cl.ibericonScore = user['ITCPoints']
+                    cl.ibericonScore = user['battlePoints']
 
             # TODO calcular global ibericon score ya sea para jugador o para equipo
             if usr.ibericonScore:
-                usr.ibericonScore += user['ITCPoints']
+                usr.ibericonScore += user['battlePoints']
             else:
-                usr.ibericonScore = user['ITCPoints']
+                usr.ibericonScore = user['battlePoints']
             db.session.commit()
         return 200
     return 400
