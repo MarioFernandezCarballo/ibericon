@@ -35,7 +35,8 @@ def addNewTournament(db, form):
             name=info['name'].strip(),
             shortName=info['name'].replace(" ", "").lower(),
             isTeam=isTeamTournament,
-            date=info['eventDate'].split("T")[0]
+            date=info['eventDate'].split("T")[0],
+            totalPlayers=info['totalPlayers']
         ))
         db.session.commit()
         tor = Tournament.query.filter_by(bcpId=info['id']).first()
@@ -55,36 +56,20 @@ def addNewTournament(db, form):
             tor.users.append(usr)
             usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
             usrTor.position = user['placing']
-            # TODO Ver nueva estructura de bcp quye ha cambiado!!!!
-            usrTor.bcpScore = user['battlePoints']
-            # TODO calcular ibericon score de este user para este torneo
-            usrTor.ibericonScore = user['battlePoints']
-
+            # Algoritmo mágico warp
+            performance = [0, 0, 0]
+            for game in user['games']:
+                performance[game['gameResult']] += 1
+            usrTor.ibericonScore = ((performance[2]*3) + performance[1]) * (1 + (tor.totalPlayers / 100))  # Option 1
+            # usrTor.ibericonScore = ((performance[2] * 3) + performance[1]) * (tor.totalPlayers / 100)  # Option 2
             if fct:
                 if fct not in usr.factions:
                     usr.factions.append(fct)
                 usrTor.factionId = fct.id
-                usrFct = UserFaction.query.filter_by(userId=usr.id).filter_by(factionId=fct.id).first()
-                # TODO calcular y actualizar Ibericon Score de facción de este user
-                usrFct.ibericonScore = user['battlePoints']
             if cl:
                 if cl not in usr.clubs:
                     usr.clubs.append(cl)
                 usrTor.clubId = cl.id
-                usrTe = UserClub.query.filter_by(userId=usr.id).filter_by(clubId=cl.id).first()
-                # TODO calcular y actualizar Ibericon Score de equipo para este torneo
-                usrTe.ibericonScore = user['battlePoints']
-                # TODO Update global club score
-                if cl.ibericonScore:
-                    cl.ibericonScore += user['battlePoints']
-                else:
-                    cl.ibericonScore = user['battlePoints']
-
-            # TODO calcular global ibericon score ya sea para jugador o para equipo
-            if usr.ibericonScore:
-                usr.ibericonScore += user['battlePoints']
-            else:
-                usr.ibericonScore = user['battlePoints']
             db.session.commit()
-        return 200
-    return 400
+        return 200, tor
+    return 400, None
