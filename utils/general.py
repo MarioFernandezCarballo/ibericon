@@ -4,8 +4,7 @@ from database import User, UserTournament, UserFaction, UserClub, Club
 
 
 def updateStats(db, tor):
-    # for usr in tor.users:  # TODO esto para producción
-    for usr in User.query.all():
+    for usr in tor.users:
         best = UserTournament.query.filter_by(userId=usr.id).order_by(desc(UserTournament.ibericonScore)).all()
         usr.ibericonScore = sum([t.ibericonScore for t in best[:4]])
         for usrFct in UserFaction.query.filter_by(userId=usr.id).all():

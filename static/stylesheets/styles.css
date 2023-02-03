@@ -74,25 +74,6 @@ nav a:hover {
     color: #fff;
 }
 
-@media
-(prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  body {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  body {
-    font-size: 11px;
-  }
-}
-
 /* Form Styles */
 
 .login a{
@@ -171,7 +152,7 @@ nav a:hover {
 
 /* Responsive */
 
-@media (max-width: 767px) {
+@media only screen and (max-width: 900px) {
     .fl-table {
         display: block;
         width: 100%;

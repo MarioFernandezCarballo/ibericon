@@ -10,12 +10,114 @@
             </tr>
             </thead>
             <tbody>
-            {% for us in users[:5] %}
+            {% for us in users[:16] %}
                 <tr onclick="location.href='/user/{{ us.id }}';">
                     <td style="width: 70%;">{{ us.bcpName }}</td>
                     <td>{{ '%0.2f'| format(us.ibericonScore) }}</td>
                 </tr>
             {% endfor %}
+            <tbody>
+        </table>
+    </div>
+    <h2 class="link-h2">1º Golden Ticket</h2>
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% if golden1 is not none %}
+                        <td>{{ golden1.bcpName }}</td>
+                    {% else %}
+                        <td>TBD</td>
+                    {% endif %}
+                </tr>
+            <tbody>
+        </table>
+    </div>
+    <h2 class="link-h2">2º Golden Ticket</h2>
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% if golden2 is not none %}
+                        <td>{{ golden2.bcpName }}</td>
+                    {% else %}
+                        <td>TBD</td>
+                    {% endif %}
+                </tr>
+            <tbody>
+        </table>
+    </div>
+    <h2 class="link-h2">3º Golden Ticket</h2>
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% if golden3 is not none %}
+                        <td>{{ golden3.bcpName }}</td>
+                    {% else %}
+                        <td>TBD</td>
+                    {% endif %}
+                </tr>
+            <tbody>
+        </table>
+    </div>
+    <h2 class="link-h2">Silver Tickets</h2>
+    <div class="table-wrapper">
+        <table class="fl-table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Torneo</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% if silver1 is not none %}
+                        <td style="width: 70%;">{{ silver1.bcpName }}</td>
+                    {% else %}
+                        <td style="width: 70%;">TBD</td>
+                    {% endif %}
+                    <td>Nacional de Valencia</td>
+                </tr>
+                <tr>
+                    {% if silver2 is not none %}
+                        <td style="width: 70%;">{{ silver2.bcpName }}</td>
+                    {% else %}
+                        <td style="width: 70%;">TBD</td>
+                    {% endif %}
+                    <td>Campanas de la Plaga</td>
+                </tr>
+                <tr>
+                    {% if silver3 is not none %}
+                        <td style="width: 70%;">{{ silver3.bcpName }}</td>
+                    {% else %}
+                        <td style="width: 70%;">TBD</td>
+                    {% endif %}
+                    <td>GT de Valladolid</td>
+                </tr>
+                <tr>
+                    {% if silver4 is not none %}
+                        <td style="width: 70%;">{{ silver4.bcpName }}</td>
+                    {% else %}
+                        <td style="width: 70%;">TBD</td>
+                    {% endif %}
+                    <td>La Cabra Norteña</td>
+                </tr>
             <tbody>
         </table>
     </div>
