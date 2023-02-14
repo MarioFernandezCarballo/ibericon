@@ -92,10 +92,10 @@ def getUserOnly(pl):
 
 def getUsers(qty=0):
     if qty > 0:
-        result = User.query.order_by(desc(User.ibericonScore)).all()
+        result = User.query.filter(User.bcpId != "0000000000").order_by(desc(User.ibericonScore)).all()
         return result[0:qty-1]
     else:
-        return User.query.order_by(desc(User.ibericonScore)).all()
+        return User.query.filter(User.bcpId != "0000000000").order_by(desc(User.ibericonScore)).all()
 
 
 def addUser(db, usr):

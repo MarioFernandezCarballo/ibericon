@@ -30,11 +30,9 @@ def createApp(app):
 
     app.config["ADMIN_USERNAME"] = config['admin-name']
     app.config["ADMIN_PASSWORD"] = config['admin-password']
-    app.config["ADMIN_BCP_LINK"] = config['admin-bcp-link']
 
     app.config["COLLABORATOR_USERNAME"] = config['collab-name']
     app.config["COLLABORATOR_PASSWORD"] = config['collab-password']
-    app.config["COLLABORATOR_BCP_LINK"] = config['collab-bcp-link']
 
     loginManager.init_app(app)
     app.config["loginManager"] = loginManager
@@ -76,15 +74,10 @@ def createTables(database):
 
 
 def createAdmin(app):
-    bcpId = app.config["ADMIN_BCP_LINK"].split("/")[-1].split("?")[0]
-    data = requests.get(app.config["BCP_API_USER"].replace("####user####", bcpId))
-    user = json.loads(data.text)
     new_user = User(
-        bcpId=bcpId,
+        bcpId="0000000000",
         name=app.config["ADMIN_USERNAME"],
         password=generate_password_hash(app.config["ADMIN_PASSWORD"], method='sha256'),
-        bcpName=user["data"][0]['user']['firstName'] + " " + user["data"][0]['user']['lastName'],
-        shortName=app.config["ADMIN_USERNAME"].lower().replace(" ", ""),
         permissions=15
     )
     app.config['database'].session.add(new_user)
@@ -92,15 +85,10 @@ def createAdmin(app):
 
 
 def createCollaborator(app):
-    bcpId = app.config["COLLABORATOR_BCP_LINK"].split("/")[-1].split("?")[0]
-    data = requests.get(app.config["BCP_API_USER"].replace("####user####", bcpId))
-    user = json.loads(data.text)
     new_user = User(
-        bcpId=bcpId,
+        bcpId="0000000000",
         name=app.config["COLLABORATOR_USERNAME"],
         password=generate_password_hash(app.config["COLLABORATOR_PASSWORD"], method='sha256'),
-        bcpName=user["data"][0]['user']['firstName'] + " " + user["data"][0]['user']['lastName'],
-        shortName=app.config["COLLABORATOR_USERNAME"].lower().replace(" ", ""),
         permissions=13
     )
     app.config['database'].session.add(new_user)
