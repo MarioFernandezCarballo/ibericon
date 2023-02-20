@@ -17,7 +17,7 @@ def generalEndPoint():
     golden1 = None  # getUserOnly(X)  TODO ganador torneo Madrid
     golden2 = None  # getUserOnly(X)  TODO ganador torneo Silver
     golden3 = None  # getUserOnly(X)  TODO ganador torneo Final 16
-    silver1 = None  # getUserOnly(X)  TODO ganador Valencia
+    silver1 = getUserOnly(3)
     silver2 = None  # getUserOnly(X)  TODO ganador Campanas
     silver3 = None  # getUserOnly(X)  TODO ganador Valladolid
     silver4 = None  # getUserOnly(X)  TODO ganador La Cabra
