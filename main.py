@@ -29,6 +29,4 @@ if __name__ == '__main__':
 
 # TODO
 #  -hacer web responsiva.
-#  -hacerla más rápida.
 #  -hacer mySQL en aws ¿y sqlite como backup?
-#  -hacer una cuenta genérica admin y collaborator para añadir torneos

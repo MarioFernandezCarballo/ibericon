@@ -59,10 +59,16 @@ def addNewTournament(db, form):
             usrTor.position = user['placing']
             # Algoritmo mágico warp
             performance = [0, 0, 0]
-            for game in user['games']:
+            for game in user['total_games']:
                 performance[game['gameResult']] += 1
-            score = ((performance[2]*3) + performance[1]) * (1 + (tor.totalPlayers / 100))
-            usrTor.ibericonScore = (score*10)/tor.rounds
+
+            # score = ((performance[2]*3) + performance[1]) * (1 + (tor.totalPlayers / 100))
+            # usrTor.ibericonScore = (score*10)/tor.rounds
+
+            playerModifier = 1 + tor.totalPlayers/100
+            roundModifier = (tor.rounds/(tor.rounds+2)) - ((tor.rounds-len(user['total_games']))/30)
+            performanceModifier = ((performance[2] * 3) + performance[1])
+            usrTor.ibericonScore = playerModifier * roundModifier * performanceModifier
             if fct:
                 if fct not in usr.factions:
                     usr.factions.append(fct)
