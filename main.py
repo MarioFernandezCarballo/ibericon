@@ -29,4 +29,3 @@ if __name__ == '__main__':
 
 # TODO
 #  -hacer web responsiva.
-#  -hacer mySQL en aws ¿y sqlite como backup?
