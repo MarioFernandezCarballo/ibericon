@@ -13,6 +13,7 @@ Jinja2==3.1.2
 MarkupSafe==2.1.2
 password-strength==0.0.3.post2
 PyJWT==2.6.0
+PyMySQL==1.0.2
 requests==2.28.2
 six==1.16.0
 SQLAlchemy==2.0.1
