@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from utils.general import updateStats
 from utils.user import setPlayerPermission, getUserOnly
 from utils.decorators import only_left_hand, only_collaborator
-from utils.tournament import addNewTournament
+from utils.tournament import addNewTournament, deleteTournament
 
 adminBP = Blueprint('adminBluePrint', __name__)
 
@@ -46,3 +46,17 @@ def addNewTournamentEndPoint():
         title="Añadir Torneo",
         user=current_user if not current_user.is_anonymous else None
     )
+
+
+@adminBP.route("/delete/tournament/<to>", methods={"GET", "POST"})
+@login_required
+@only_collaborator
+def deleteTournamentEndPoint(to):
+    if deleteTournament(current_app.config["database"], to) == 200:
+        if updateStats(current_app.config['database']) == 200:
+            flash("OK")
+        else:
+            flash("NOK")
+    else:
+        flash("NOK")
+    return redirect(url_for('genericBluePrint.generalEndPoint'))

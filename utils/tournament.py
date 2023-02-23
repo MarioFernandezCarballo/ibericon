@@ -80,3 +80,13 @@ def addNewTournament(db, form):
             db.session.commit()
         return 200, tor
     return 400, None
+
+
+def deleteTournament(db, to):
+    UserTournament.query.filter_by(tournamentId=to).delete()
+    g = UserTournament.query.filter_by(tournamentId=to).all()
+    r = 0
+    f = 0
+    db.session.delete(Tournament.query.filter_by(id=to).first())
+    db.session.commit()
+    return 200
