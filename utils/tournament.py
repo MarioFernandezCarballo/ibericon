@@ -58,17 +58,39 @@ def addNewTournament(db, form):
             usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
             usrTor.position = user['placing']
             # Algoritmo mágico warp
-            performance = [0, 0, 0]
-            for game in user['total_games']:
-                performance[game['gameResult']] += 1
-
+            # OPCION 1
+            # performance = [0, 0, 0]
+            # for game in user['total_games']:
+            #     performance[game['gameResult']] += 1
             # score = ((performance[2]*3) + performance[1]) * (1 + (tor.totalPlayers / 100))
             # usrTor.ibericonScore = (score*10)/tor.rounds
 
-            playerModifier = 1 + tor.totalPlayers/100
-            roundModifier = (tor.rounds/(tor.rounds+2)) - ((tor.rounds-len(user['total_games']))/30)
-            performanceModifier = ((performance[2] * 3) + performance[1])
-            usrTor.ibericonScore = playerModifier * roundModifier * performanceModifier
+            # OPCION 2
+            # performance = [0, 0, 0]
+            # for game in user['total_games']:
+            #     performance[game['gameResult']] += 1
+            # playerModifier = 1 + tor.totalPlayers/100
+            # roundModifier = (tor.rounds/(tor.rounds+2)) - ((tor.rounds-len(user['total_games']))/30)
+            # performanceModifier = ((performance[2] * 3) + performance[1])
+            # usrTor.ibericonScore = playerModifier * roundModifier * performanceModifier
+
+            # OPCION 3
+            performance = [0, 0, 0]
+            victoryMod = 1
+            for game in user['total_games']:
+                if game['gameResult'] > 1:
+                    victoryMod += .05
+                elif game['gameResult'] < 1:
+                    victoryMod -= .05
+                if game['gameResult'] == 2:
+                    performance[game['gameResult']] += 1 * victoryMod
+                else:
+                    performance[game['gameResult']] += 1
+            playerModifier = 1 + tor.totalPlayers / 100
+            roundModifier = (tor.rounds / (tor.rounds + 2)) - ((tor.rounds-len(user['total_games']))/30)
+            performanceModifier = (len(user['total_games'])) + ((performance[2] * 3) + performance[1] - (performance[1] * .3))
+            usrTor.ibericonScore = playerModifier * performanceModifier * roundModifier
+
             if fct:
                 if fct not in usr.factions:
                     usr.factions.append(fct)
@@ -84,9 +106,6 @@ def addNewTournament(db, form):
 
 def deleteTournament(db, to):
     UserTournament.query.filter_by(tournamentId=to).delete()
-    g = UserTournament.query.filter_by(tournamentId=to).all()
-    r = 0
-    f = 0
     db.session.delete(Tournament.query.filter_by(id=to).first())
     db.session.commit()
     return 200
