@@ -38,7 +38,11 @@
                             {% else %}
                                 <td>-</td>
                             {% endif %}
-                            <td>{{ '%0.2f'| format(usrTor.UserTournament.ibericonScore) }}</td>
+                            {% if usrTor.UserTournament.countingScore %}
+                                <td style="color: #FFF49B;">{{ '%0.2f'| format(usrTor.UserTournament.ibericonScore) }}</td>
+                            {% else %}
+                                <td>{{ '%0.2f'| format(usrTor.UserTournament.ibericonScore) }}</td>
+                            {% endif %}
                         </tr>
                     {% endif %}
                 {% endfor %}

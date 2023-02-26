@@ -60,6 +60,7 @@ class Tournament(db.Model):
     bcpUri = db.Column(db.String(100), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     shortName = db.Column(db.String(50))
+    city = db.Column(db.String(50))
     date = db.Column(db.String(50))
     isTeam = db.Column(db.Boolean)
     totalPlayers = db.Column(db.Integer)
@@ -81,6 +82,7 @@ class UserTournament(db.Model):
     position = db.Column(db.Integer)
     bcpScore = db.Column(db.Float, default=0.0)
     ibericonScore = db.Column(db.Float, default=0.0)
+    countingScore = db.Column(db.Boolean, default=False)
 
 
 class UserFaction(db.Model):

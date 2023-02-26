@@ -9,7 +9,7 @@
                 <th>Fecha</th>
                 <th>Tipo</th>
                 <th>Participantes</th>
-                <th>Ganador</th>
+                <th>Comunidad</th>
             </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
                         <td>Individual</td>
                     {% endif %}
                     <td>{{ tor.users|length }}</td>
-                    <td>{{ tor.users[0].bcpName }}</td>
+                    <td>{{ tor.city }}</td>
                 </tr>
             {% endfor %}
             <tbody>

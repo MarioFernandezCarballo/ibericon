@@ -1,20 +1,37 @@
 from sqlalchemy import desc
 
-from database import User, UserTournament, UserFaction, UserClub, Club
+from database import User, Tournament, UserTournament, UserFaction, UserClub, Club
 
 
 def updateStats(db, tor=None):
     if tor:
         for usr in tor.users:
-            best = UserTournament.query.filter_by(userId=usr.id).order_by(desc(UserTournament.ibericonScore)).all()
-            usr.ibericonScore = sum([t.ibericonScore for t in best[:4]])
+            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.ibericonScore)).filter(
+                UserTournament.userId == usr.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
+            cities = {}
+            score = 0
+            counter = 0
+            for to in best:
+                to.UserTournament.countingScore = False
+                try:
+                    cities[to.Tournament.city] += 1
+                except KeyError:
+                    cities[to.Tournament.city] = 1
+
+                if cities[to.Tournament.city] <= 3:
+                    score += to.UserTournament.ibericonScore
+                    to.UserTournament.countingScore = True
+                    counter += 1
+                if counter == 4:
+                    break
+            usr.ibericonScore = score
             for usrFct in UserFaction.query.filter_by(userId=usr.id).all():
                 score = 0
                 count = 0
                 for t in best:
-                    if t.factionId == usrFct.factionId:
+                    if t.UserTournament.factionId == usrFct.factionId:
                         count += 1
-                        score += t.ibericonScore
+                        score += t.UserTournament.ibericonScore
                     if count == 3:
                         break
                 usrFct.ibericonScore = score
@@ -22,9 +39,9 @@ def updateStats(db, tor=None):
                 score = 0
                 count = 0
                 for t in best:
-                    if t.clubId == usrCl.clubId:
+                    if t.UserTournament.clubId == usrCl.clubId:
                         count += 1
-                        score += t.ibericonScore
+                        score += t.UserTournament.ibericonScore
                     if count == 3:
                         break
                 usrCl.ibericonScore = score
@@ -33,15 +50,32 @@ def updateStats(db, tor=None):
             cl.ibericonScore = sum([t.ibericonScore for t in best[:10]])
     else:
         for usr in User.query.all():
-            best = UserTournament.query.filter_by(userId=usr.id).order_by(desc(UserTournament.ibericonScore)).all()
-            usr.ibericonScore = sum([t.ibericonScore for t in best[:4]])
+            best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.ibericonScore)).filter(
+                UserTournament.userId == usr.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
+            cities = {}
+            score = 0
+            counter = 0
+            for to in best:
+                to.UserTournament.countingScore = False
+                try:
+                    cities[to.Tournament.city] += 1
+                except KeyError:
+                    cities[to.Tournament.city] = 1
+
+                if cities[to.Tournament.city] <= 3:
+                    score += to.UserTournament.ibericonScore
+                    to.UserTournament.countingScore = True
+                    counter += 1
+                if counter == 4:
+                    break
+            usr.ibericonScore = score
             for usrFct in UserFaction.query.filter_by(userId=usr.id).all():
                 score = 0
                 count = 0
                 for t in best:
-                    if t.factionId == usrFct.factionId:
+                    if t.UserTournament.factionId == usrFct.factionId:
                         count += 1
-                        score += t.ibericonScore
+                        score += t.UserTournament.ibericonScore
                     if count == 3:
                         break
                 usrFct.ibericonScore = score
@@ -49,9 +83,9 @@ def updateStats(db, tor=None):
                 score = 0
                 count = 0
                 for t in best:
-                    if t.clubId == usrCl.clubId:
+                    if t.UserTournament.clubId == usrCl.clubId:
                         count += 1
-                        score += t.ibericonScore
+                        score += t.UserTournament.ibericonScore
                     if count == 3:
                         break
                 usrCl.ibericonScore = score
