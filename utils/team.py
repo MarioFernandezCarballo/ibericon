@@ -1,16 +1,16 @@
 from flask import current_app
 from sqlalchemy import desc
 
-from database import Team, Tournament, UserTournament
+from database import Team, Tournament, UserTournament, User
 
 
 def getTeam(te):
-    return current_app.config["database"].session.query(UserTournament, Tournament, Team
+    return current_app.config["database"].session.query(UserTournament, Tournament, User
                                                         ).filter(UserTournament.teamId == te
                                                                  ).join(Tournament,
                                                                         Tournament.id == UserTournament.tournamentId
-                                                                        ).join(Team,
-                                                                               Team.id == UserTournament.teamId).all()
+                                                                        ).join(User,
+                                                                               User.id == UserTournament.userId).all()
 
 
 def getTeamOnly(te):
@@ -25,13 +25,18 @@ def getTeams(qty=0):
         return Team.query.order_by(desc(Team.ibericonScore)).all()
 
 
+def getTeamUsers(team, allUsers):
+    teamUsersId = [pl['objectId'] for pl in team['players']]
+    return [user for user in allUsers['data'] if user['objectId'] in teamUsersId]
+
+
 def addTeam(db, te):
-    if te['team']:
-        if not Team.query.filter_by(bcpId=te['teamId']).first():
-            db.session.add(Team(
-                bcpId=te['teamId'],
-                name=te['team']['name'].strip(),
-                shortName=te['team']['name'].replace(" ", "").lower()
-            ))
+    teId = te['name'].replace(" ", "-").lower()
+    if not Team.query.filter_by(bcpId=teId).first():
+        db.session.add(Team(
+            bcpId=teId,
+            name=te['name'].strip(),
+            shortName=te['name'].replace(" ", "").lower()
+        ))
     db.session.commit()
-    return Team.query.filter_by(bcpId=te['teamId']).first() if te['team'] else None
+    return Team.query.filter_by(bcpId=teId).first()

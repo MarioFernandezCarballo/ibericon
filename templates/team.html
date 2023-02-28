@@ -20,8 +20,8 @@
                             {% if usr.id == teamTor.UserTournament.userId %}
                                 <tr onclick="location.href='/user/{{ teamTor.UserTournament.userId }}';">
                                     <td style="width: 70%;">{{ usr.bcpName }}</td>
-                                    <td style="width: 20%;">{{ teamTor.UserTournament.position }}</td>
-                                    <td>{{ '%0.2f'| format(teamTor.UserTournament.ibericonScore) }}</td>
+                                    <td style="width: 20%;">{{ teamTor.UserTournament.teamPosition }}</td>
+                                    <td>{{ '%0.2f'| format(teamTor.UserTournament.ibericonTeamScore) }}</td>
                                 </tr>
                             {% endif %}
                         {% endfor %}
