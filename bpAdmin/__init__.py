@@ -70,7 +70,7 @@ def deleteTournamentEndPoint(to):
 @adminBP.route('/update_server', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        subprocess.call(['sh', './command-pull-event.sh'])
+        os.system('bash command-pull-event.sh')
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
