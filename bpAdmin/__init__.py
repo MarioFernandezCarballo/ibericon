@@ -1,7 +1,4 @@
 import os
-import subprocess
-
-import git
 
 from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template
 from flask_login import login_required, current_user
