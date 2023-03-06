@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     shortName = db.Column(db.String(30))
     permissions = db.Column(db.Integer)
     ibericonScore = db.Column(db.Float, default=0.0)
+    winRate = db.Column(db.Float)
     factions = db.relationship('Faction', secondary="userfaction", cascade='all,delete', back_populates='users')
     teams = db.relationship('Team', secondary="userteam", cascade='all,delete', back_populates='users')
     clubs = db.relationship('Club', secondary="userclub", cascade='all,delete', back_populates='users')
@@ -85,6 +86,7 @@ class UserTournament(db.Model):
     ibericonScore = db.Column(db.Float, default=0.0)
     ibericonTeamScore = db.Column(db.Float, default=0.0)
     countingScore = db.Column(db.Boolean, default=False)
+    performance = db.Column(db.String(500))
 
 
 class UserFaction(db.Model):

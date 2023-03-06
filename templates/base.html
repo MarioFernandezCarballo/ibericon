@@ -8,18 +8,12 @@
 </head>
 <body>
     <nav class="fade-in">
-        <a href="/">General</a>
-        <a href="/users">Jugadores</a>
-        <a href="/teams">Equipos</a>
-        <a href="/clubs">Clubes</a>
-        <a href="/tournaments">Torneos</a>
-        <a href="/factions">Facciones</a>
-        {% if user %}
-            {% if user.permissions >= 12 %}
-                <a class="nav-link" href="/add/tournament">Añadir torneo</a>
-            {% endif %}
-            <a class="nav-link" href="/logout">Desconectarse</a>
-        {% endif %}
+        <div><a href="/">General</a></div>
+        <div><a href="/users">Jugadores</a></div>
+        <div><a href="/teams">Equipos</a></div>
+        <div><a href="/clubs">Clubes</a></div>
+        <div><a href="/tournaments">Torneos</a></div>
+        <div><a href="/factions">Facciones</a></div>
     </nav>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
@@ -33,5 +27,13 @@
     <div class="logo"></div>
     {% block content %}
     {% endblock %}
+    {% if user %}
+        <nav class="footer fade-in">
+        {% if user.permissions >= 12 %}
+            <div><a class="nav-link" href="/add/tournament">Añadir torneo</a></div>
+        {% endif %}
+        <div><a class="nav-link" href="/logout">Desconectarse</a></div>
+        </nav>
+    {% endif %}
 </body>
 </html>

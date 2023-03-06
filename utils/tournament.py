@@ -72,6 +72,7 @@ def manageUsers(db, tor):
         tor.users.append(usr)
         usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
         usrTor.position = user['placing']
+        usrTor.performance = json.dumps(user['total_games'])
 
         # Algoritmo mágico warp
         # OPCION 1
@@ -155,6 +156,7 @@ def manageTeams(db, tor):
 
             usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
             usrTor.position = us['placing']
+            usrTor.performance = json.dumps('total_games')
 
             usrTor.teamPosition = teamPlacing['placing']
 

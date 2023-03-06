@@ -25,22 +25,15 @@ body{
     background-repeat: no-repeat;
 }
 .logo{
-    background-image: url(img/ibericonLogo.jpg);
+    background-image: url(img/logo.png);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: -webkit-linear-gradient(left,
-        rgba(0,0,0,0.5) 0%,
-        rgba(0,0,0,0) 10%,
-        rgba(0,0,0,0) 90%,
-        rgba(0,0,0,0.5) 100%
-      ),
-      url(img/ibericonLogo.jpg);
 
     margin: auto;
     max-width: 50%;
-    width: 400px;
-    height: 200px;
+    width: 150px;
+    height: 100px;
     margin-top: 20px;
 }
 h2{
@@ -77,7 +70,7 @@ h4{
 
 .link-h2:hover{
     cursor: pointer;
-    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #ff8d00, 0 0 40px #ff0000;
+    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #FF601F, 0 0 40px #ff0000;
     color: #fff;
     transition: text-shadow 0.1s ease-in-out;
 }
@@ -98,18 +91,35 @@ nav {
 }
 
 nav a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 12px;
+    text-align: center;
+    font-size: 15px;
     text-transform: uppercase;
-    font-family: Helvetica;
+    letter-spacing: 1px;
+    color: white;
+    text-decoration: none;
     margin: 0px 5px;
 }
 
 nav a:hover {
-    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #ff8d00, 0 0 40px #ff0000;
+    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #FF601F, 0 0 40px #ff0000;
     color: #fff;
     transition: text-shadow 0.1s ease-in-out;
+}
+
+.nav-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer {
+    margin: auto;
+    background: radial-gradient(circle, rgba(51,51,51,1) 0%, rgba(51,51,51,1) 97%, rgba(51,51,51,0) 100%);
+    padding: 5px;
+    text-align: center;
+    width: 51%;
+    bottom: 0px;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Form Styles */
@@ -175,7 +185,7 @@ nav a:hover {
 
 .fl-table tbody tr:hover {
     cursor: pointer;
-    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #ff8d00, 0 0 40px #ff0000;
+    text-shadow: 0 0 10px #ff9100, 0 0 15px #ffa500, 0 0 20px #ffa500, 0 0 25px #ff0000, 0 0 30px #FF601F, 0 0 40px #ff0000;
     color: #fff;
 }
 
