@@ -144,7 +144,8 @@ def manageTeams(db, tor):
         team = [tpl for tpl in infoTeams['data'] if tpl['id'] == teamPlacing['id']][0]
         uss = getTeamUsers(team, infoUsers)
         tm = addTeam(db, team)
-        tor.teams.append(tm)
+        if tm:
+            tor.teams.append(tm)
 
         for us in uss:
             usr = addUser(db, us)
