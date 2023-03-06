@@ -70,14 +70,10 @@ def deleteTournamentEndPoint(to):
 @adminBP.route('/update_server', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        command = subprocess.Popen(['cd', 'mysite/'])
-        command.wait()
-        command = subprocess.Popen(['git', 'pull', 'origin', 'master'])
-        command.wait()
-        command = subprocess.Popen(['pip', 'install', '-r', 'requirements.txt'])
-        command.wait()
-        command = subprocess.Popen(['touch', '/var/www/ibericon_pythonanywhere_com_wsgi.py'])
-        command.wait()
+        os.system("cd mysite")
+        os.system("git pull origin master")
+        os.system("pip install -r requirements.txt")
+        os.system("touch /var/www/ibericon_pythonanywhere_com_wsgi.py")
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
