@@ -1,3 +1,5 @@
+import os
+
 import git
 
 from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template
@@ -67,9 +69,7 @@ def deleteTournamentEndPoint(to):
 @adminBP.route('/update_server', methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        repo = git.Repo('mysite')
-        origin = repo.remotes.origin
-        origin.pull()
+        os.system("cd mysite/ | git pull origin master | pip install -r requirements.txt")
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
