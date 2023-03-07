@@ -13,7 +13,7 @@
             <tbody>
             {% for te in teams %}
                 <tr onclick="location.href='/team/{{ te.id }}';">
-                    <td style="width: 60%;">{{ te.name }}</td>
+                    <td style="width: 60%;">{{ te.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ loop.index }}</td>
                     <td>{{ '%0.2f'| format(te.ibericonScore) }}</td>
                 </tr>

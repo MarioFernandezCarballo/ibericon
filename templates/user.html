@@ -18,7 +18,7 @@
                 {% for tor in userOnly.tournaments %}
                     {% if usrTor.UserTournament.tournamentId == tor.id %}
                         <tr onclick="window.open('{{ tor.bcpUri }}', '_blank');">
-                            <td>{{ tor.name }}</td>
+                            <td>{{ tor.name | truncate(30, True, '...', 0) }}</td>
                             <td>{{ usrTor.UserTournament.position }}</td>
                             {% if usrTor.UserTournament.factionId is not none %}
                                 {% for fct in userOnly.factions %}

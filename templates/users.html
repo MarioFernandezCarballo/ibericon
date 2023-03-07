@@ -13,7 +13,7 @@
             <tbody>
             {% for us in users %}
                 <tr onclick="location.href='/user/{{ us.id }}';">
-                    <td style="width: 60%;">{{ us.bcpName }}</td>
+                    <td style="width: 60%;">{{ us.bcpName | truncate(30, True, '...', 0) }}</td>
                     <td>{{ loop.index }}</td>
                     <td>{{ '%0.2f'| format(us.ibericonScore) }}</td>
                 </tr>

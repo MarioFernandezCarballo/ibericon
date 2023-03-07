@@ -15,7 +15,7 @@
             <tbody>
             {% for tor in tors %}
                 <tr onclick="window.open('{{ tor.bcpUri }}', '_blank');">
-                    <td>{{ tor.name }}</td>
+                    <td>{{ tor.name | truncate(30, True, '...', 0) }}</td>
                     <td>{{ tor.date }}</td>
                     {% if tor.isTeam %}
                         <td>Equipos</td>
