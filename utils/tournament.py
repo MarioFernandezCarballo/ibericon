@@ -27,7 +27,7 @@ def addNewTournament(db, form):
         info = json.loads(response.text)
         if not info['ended']:
             return 400, None
-        if Tournament.query.filter_by(bcpId=eventId).first():
+        if Tournament.query.filter_by(bcpId=info['id']).first():
             return 400, None
         tor = manageTournament(db, info)
         if tor.isTeam:
