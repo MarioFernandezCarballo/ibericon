@@ -117,7 +117,7 @@ def manageUsers(db, tor):
             performance[game['gameResult']] += 1
         points = ((performance[2] * 3) + performance[1])
         finalPoints = points * maxIbericon / maxPoints
-        usrTor.ibericonScore = finalPoints * playerModifier
+        usrTor.ibericonScore = finalPoints * playerModifier * 10
 
         if fct:
             if fct not in usr.factions:
@@ -169,7 +169,7 @@ def manageTeams(db, tor):
                 performance[game['gameResult']] += 1
             points = ((performance[2] * 3) + performance[1])
             finalPoints = points * maxIbericon / maxPoints
-            usrTor.ibericonTeamScore = finalPoints * playerModifier
+            usrTor.ibericonTeamScore = finalPoints * playerModifier * 10
             usrTor.teamId = tm.id
 
             performance = [0, 0, 0]
@@ -180,7 +180,7 @@ def manageTeams(db, tor):
                 performance[game['gameResult']] += 1
             points = ((performance[2] * 3) + performance[1])
             finalPoints = points * maxIbericon / maxPoints
-            usrTor.ibericonScore = finalPoints * playerModifier
+            usrTor.ibericonScore = finalPoints * playerModifier * 10
 
             if fct:
                 if fct not in usr.factions:
