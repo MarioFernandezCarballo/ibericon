@@ -24,17 +24,33 @@ body{
     background-position: center;
     background-repeat: no-repeat;
 }
-.logo{
-    background-image: url(img/logo.png);
+.logos {
+    margin: auto;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.logo-liga{
+    background-image: url(img/logo-liga.png);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 
-    margin: auto;
     max-width: 50%;
     width: 150px;
     height: 100px;
     margin-top: 20px;
+}
+.logo-ibericon{
+    background-image: url(img/logo-ibericon.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    max-width: 50%;
+    width: 190px;
+    height: 140px;
 }
 h2{
     text-align: center;
@@ -206,9 +222,16 @@ nav a:hover {
 /* Responsive */
 
 @media only screen and (max-width: 920px) {
-    .logo{
-        margin-top: 20px;
+    .logos {
+        width: 90%;
+    }
+    .logo-liga{
+        width: 100px;
+        margin-top: 0px;
+    }
+    .logo-ibericon{
         height: 100px;
+        width: 100px;
     }
     h2{
         font-size: 18px;

@@ -5,13 +5,13 @@
     <div class="table-wrapper">
         <table class="fl-table">
             <thead>
-            <tr>
-                <th>Torneo</th>
-                <th>Posición</th>
-                <th>Facción</th>
-                <th>Equipo</th>
-                <th>Puntuación</th>
-            </tr>
+                <tr>
+                    <th>Torneo</th>
+                    <th>Posición</th>
+                    <th>Facción</th>
+                    <th>Equipo</th>
+                    <th>Puntuación</th>
+                </tr>
             </thead>
             <tbody>
             {% for usrTor in usr %}
@@ -23,7 +23,7 @@
                             {% if usrTor.UserTournament.factionId is not none %}
                                 {% for fct in userOnly.factions %}
                                     {% if fct.id == usrTor.UserTournament.factionId %}
-                                        <td>{{ fct.name }}</td>
+                                        <td>{{ fct.name | truncate(15, True, '...', 0) }}</td>
                                     {% endif %}
                                 {% endfor %}
                             {% else %}
