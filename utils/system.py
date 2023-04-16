@@ -28,6 +28,8 @@ def createApp(app):
     app.config["BCP_API_TEAM"] = config['api-team-uri']
     app.config["BCP_API_TEAM_PLACINGS"] = config['api-team-placings-uri']
 
+    app.config["CITIES"] = config["cities"]
+
     app.config["ADMIN_USERNAME"] = config['admin-name']
     app.config["ADMIN_PASSWORD"] = config['admin-password']
 

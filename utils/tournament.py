@@ -2,7 +2,6 @@ import requests
 import json
 
 from flask import current_app
-from geopy.geocoders import Nominatim
 
 from database import Tournament, UserTournament
 from utils.user import addUser
@@ -40,18 +39,13 @@ def addNewTournament(db, form):
 
 def manageTournament(db, info):
     isTeamTournament = info['teamEvent']
-    geoLocator = Nominatim(user_agent="geoapiExercises")
-    location = geoLocator.reverse(str(info['coordinate'][1]) + "," + str(info['coordinate'][0]))
-    try:
-        city = location.raw['address']['state_district']
-    except KeyError:
-        city = location.raw['address']['city']
+    location = current_app.config["CITIES"][info['zip'][0:2]]
     db.session.add(Tournament(
         bcpId=info['id'],
         bcpUri="https://www.bestcoastpairings.com/event/" + info['id'],
         name=info['name'].strip(),
         shortName=info['name'].replace(" ", "").lower(),
-        city=city,
+        city=location,
         isTeam=isTeamTournament,
         date=info['eventDate'].split("T")[0],
         totalPlayers=info['totalPlayers'],
