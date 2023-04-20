@@ -90,6 +90,10 @@ def getUserOnly(pl):
     return User.query.filter_by(id=pl).first()
 
 
+def getUserByBcpId(user):
+    return User.query.filter_by(bcpId=user['userId']).first()
+
+
 def getUsers(qty=0):
     if qty > 0:
         result = User.query.filter(User.bcpId != "0000000000").order_by(desc(User.ibericonScore)).all()

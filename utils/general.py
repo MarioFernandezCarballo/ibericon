@@ -1,7 +1,10 @@
+import requests
+import json
+
 from sqlalchemy import desc
 
 from database import User, Team, Tournament, UserTournament, UserFaction, UserClub, Club
-
+from utils.user import getUserByBcpId
 
 def updateStats(db, tor=None):
     if tor:
@@ -103,4 +106,31 @@ def updateStats(db, tor=None):
             best = UserClub.query.filter_by(clubId=cl.id).order_by(desc(UserClub.ibericonScore)).all()
             cl.ibericonScore = sum([t.ibericonScore for t in best[:10]])
     db.session.commit()
+    return 200
+
+
+def updateAlgorythm(app):
+    for tor in Tournament.query.all():
+        uri = app.config["BCP_API_USERS"].replace("####event####", tor.bcpId)
+        response = requests.get(uri)
+        info = json.loads(response.text)
+        for user in info['data']:
+            usr = getUserByBcpId(user)
+
+            usrTor = UserTournament.query.filter_by(userId=usr.id).filter_by(tournamentId=tor.id).first()
+            usrTor.position = user['placing']
+            usrTor.performance = json.dumps(user['total_games'])
+
+            performance = [0, 0, 0]
+            maxPoints = len(user['games']) * 3
+            maxIbericon = 3
+            playerModifier = 1 + len(tor.users) / 100
+            for game in user['games']:
+                performance[game['gameResult']] += 1
+            points = ((performance[2] * 3) + performance[1])
+            finalPoints = points * maxIbericon / maxPoints
+            usrTor.ibericonScore = finalPoints * playerModifier * 10
+            app.config['database'].session.commit()
+
+        updateStats(app.config['database'], tor)
     return 200

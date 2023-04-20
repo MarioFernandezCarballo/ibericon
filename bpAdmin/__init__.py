@@ -3,7 +3,7 @@ import os
 from flask import Blueprint, redirect, url_for, current_app, request, flash, render_template
 from flask_login import login_required, current_user
 
-from utils.general import updateStats
+from utils.general import updateStats, updateAlgorythm
 from utils.user import setPlayerPermission, getUserOnly
 from utils.decorators import only_left_hand, only_collaborator
 from utils.tournament import addNewTournament, deleteTournament
@@ -71,3 +71,13 @@ def webhook():
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
+
+
+@adminBP.route('/update_algorythm', methods=['Get'])
+@login_required
+@only_left_hand
+def updateAlgorythmEndPoint():
+    if updateAlgorythm(current_app) == 200:
+        return 'Updated successfully', 200
+    else:
+        return 'Wrong', 400

@@ -48,7 +48,7 @@ def manageTournament(db, info):
         city=location,
         isTeam=isTeamTournament,
         date=info['eventDate'].split("T")[0],
-        totalPlayers=info['totalPlayers'],
+        totalPlayers=info['totalPlayers'] - info['droppedPlayers'],
         rounds=info['numberOfRounds']
     ))
     db.session.commit()
