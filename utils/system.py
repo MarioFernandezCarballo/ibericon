@@ -1,7 +1,6 @@
 import json
 import secrets
 import os
-import requests
 
 from werkzeug.security import generate_password_hash
 
@@ -27,6 +26,7 @@ def createApp(app):
     app.config["BCP_API_USERS"] = config['api-users-uri']
     app.config["BCP_API_TEAM"] = config['api-team-uri']
     app.config["BCP_API_TEAM_PLACINGS"] = config['api-team-placings-uri']
+    app.config["BCP_API_HEADERS"] = config['api-headers']
 
     app.config["CITIES"] = config["cities"]
 

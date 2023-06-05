@@ -2,9 +2,11 @@ import requests
 import json
 
 from sqlalchemy import desc
+from flask import current_app
 
 from database import User, Team, Tournament, UserTournament, UserFaction, UserClub, Club
 from utils.user import getUserByBcpId
+
 
 def updateStats(db, tor=None):
     if tor:
@@ -112,7 +114,7 @@ def updateStats(db, tor=None):
 def updateAlgorythm(app):
     for tor in Tournament.query.all():
         uri = app.config["BCP_API_USERS"].replace("####event####", tor.bcpId)
-        response = requests.get(uri)
+        response = requests.get(uri, headers=current_app.config["BCP_API_HEADERS"])
         info = json.loads(response.text)
         for user in info['data']:
             usr = getUserByBcpId(user)
