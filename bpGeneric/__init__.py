@@ -19,7 +19,7 @@ def generalEndPoint():
     golden3 = None  # getUserOnly(X)  TODO ganador torneo Final 16
     silver1 = getUserOnly(3)  # 2023 Chapu
     silver2 = getUserOnly(4)  # 2023 Ace
-    silver3 = None  # getUserOnly(X)  TODO ganador Valladolid
+    silver3 = getUserOnly(114)  # 2023 Tamer
     silver4 = None  # getUserOnly(X)  TODO ganador La Cabra
     return render_template(
         'general.html',
