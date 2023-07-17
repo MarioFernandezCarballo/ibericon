@@ -20,7 +20,7 @@ def generalEndPoint():
     silver1 = getUserOnly(3)  # 2023 Chapu
     silver2 = getUserOnly(4)  # 2023 Ace
     silver3 = getUserOnly(114)  # 2023 Tamer
-    silver4 = None  # getUserOnly(X)  TODO ganador La Cabra
+    silver4 = getUserOnly(100)  # 2023 Qiqems
     return render_template(
         'general.html',
         title="General",
