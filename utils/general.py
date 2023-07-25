@@ -56,8 +56,12 @@ def updateStats(db, tor=None):
                 UserTournament.teamId == tm.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
             tm.ibericonScore = sum([t.UserTournament.ibericonTeamScore for t in best[:4]]) / 3  # Team Players
         for cl in Club.query.all():
-            best = UserClub.query.filter_by(clubId=cl.id).order_by(desc(UserClub.ibericonScore)).all()
-            cl.ibericonScore = sum([t.ibericonScore for t in best[:10]])
+            clubScore = []
+            for player in UserClub.query.filter_by(clubId=cl.id).all():
+                for best in db.session.query(UserTournament).order_by(desc(UserTournament.ibericonScore)).filter(UserTournament.userId == player.userId).limit(3).all():
+                    clubScore.append(best.ibericonScore)
+            clubScore.sort(reverse=True)
+            cl.ibericonScore = sum(clubScore[:10])
     else:
         for usr in User.query.all():
             best = db.session.query(UserTournament, Tournament).order_by(desc(UserTournament.ibericonScore)).filter(
@@ -105,8 +109,13 @@ def updateStats(db, tor=None):
                 UserTournament.teamId == tm.id).join(Tournament, Tournament.id == UserTournament.tournamentId).all()
             tm.ibericonScore = sum([t.UserTournament.ibericonTeamScore for t in best[:4]]) / 3  # Team Players
         for cl in Club.query.all():
-            best = UserClub.query.filter_by(clubId=cl.id).order_by(desc(UserClub.ibericonScore)).all()
-            cl.ibericonScore = sum([t.ibericonScore for t in best[:10]])
+            clubScore = []
+            for player in UserClub.query.filter_by(clubId=cl.id).all():
+                for best in db.session.query(UserTournament).order_by(desc(UserTournament.ibericonScore)).filter(
+                        UserTournament.userId == player.userId).limit(3).all():
+                    clubScore.append(best.ibericonScore)
+            clubScore.sort(reverse=True)
+            cl.ibericonScore = sum(clubScore[:10])
     db.session.commit()
     return 200
 

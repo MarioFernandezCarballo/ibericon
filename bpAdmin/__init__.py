@@ -81,3 +81,14 @@ def updateAlgorythmEndPoint():
         return 'Updated successfully', 200
     else:
         return 'Wrong', 400
+
+
+@adminBP.route('/update_stats', methods=['Get'])
+@login_required
+@only_left_hand
+def updateStatsEndPoint():
+    if updateStats(current_app.config['database']) == 200:
+        flash("OK")
+    else:
+        flash("NOK")
+    return redirect(url_for('genericBluePrint.generalEndPoint'))
